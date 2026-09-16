@@ -56,3 +56,64 @@ test('mobile route remains usable without horizontal clipping', async ({ page })
   await expect(page.locator('.scene.active')).toHaveAttribute('id', 'scene-agreement');
   await expect(page.locator('.scene.active .card').last()).toContainText('Testable behaviour');
 });
+
+for (const viewport of [
+  { name: 'desktop', width: 1440, height: 900 },
+  { name: 'mobile', width: 390, height: 844 },
+]) {
+  test(`source drawer stays contained and pointer-reachable on ${viewport.name}`, async ({ page }) => {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/web/index.html#ambiguity');
+    await page.locator('[data-control="open-files"]').click();
+
+    const drawer = page.locator('#drawer');
+    const close = page.locator('[data-control="close-files"]');
+    const fileView = page.locator('#fileView');
+    const payload = JSON.parse(await page.locator('#masterclass-data').textContent());
+    const paths = Object.keys(payload.files);
+    await expect(page.locator('.file-tab')).toHaveCount(paths.length);
+
+    const geometry = await drawer.evaluate(element => {
+      const box = selector => {
+        const rect = element.querySelector(selector).getBoundingClientRect();
+        return { left: rect.left, right: rect.right, width: rect.width };
+      };
+      return {
+        viewportWidth: window.innerWidth,
+        drawer: (() => { const rect = element.getBoundingClientRect(); return { left: rect.left, right: rect.right, width: rect.width }; })(),
+        head: box('.drawer-head'),
+        close: box('[data-control="close-files"]'),
+        fileTabs: box('#fileTabs'),
+        fileMeta: box('#fileMeta'),
+        fileView: box('#fileView'),
+        scrollWidth: element.scrollWidth,
+        clientWidth: element.clientWidth,
+      };
+    });
+    for (const [name, box] of Object.entries(geometry)) {
+      if (!box || typeof box !== 'object') continue;
+      expect(box.left, `${name} starts outside viewport`).toBeGreaterThanOrEqual(-1);
+      expect(box.right, `${name} ends outside viewport`).toBeLessThanOrEqual(viewport.width + 1);
+    }
+    expect(geometry.scrollWidth, 'drawer must not horizontally overflow').toBeLessThanOrEqual(geometry.clientWidth + 1);
+
+    for (const sourcePath of paths) {
+      const tab = page.locator('.file-tab').filter({ hasText: sourcePath }).first();
+      await tab.scrollIntoViewIfNeeded();
+      await expect(tab).toBeInViewport();
+      await tab.click();
+      await expect(tab).toHaveAttribute('aria-selected', 'true');
+      await expect(fileView).toContainText(payload.files[sourcePath].content.slice(0, 80));
+    }
+
+    const firstTab = page.locator('.file-tab').first();
+    await firstTab.scrollIntoViewIfNeeded();
+    await firstTab.click();
+    await expect(firstTab).toHaveAttribute('aria-selected', 'true');
+    await page.screenshot({ path: `qa/source-drawer-${viewport.name}.png`, fullPage: true });
+    await expect(close).toBeInViewport();
+    await close.click();
+    await expect(drawer).toHaveAttribute('aria-hidden', 'true');
+  });
+}
