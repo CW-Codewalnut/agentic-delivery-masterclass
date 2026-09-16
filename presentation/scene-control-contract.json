@@ -1,0 +1,173 @@
+{
+  "source": "presentation/scenes.json",
+  "controls": {
+    "next": "button or ArrowRight/PageDown/Space",
+    "back": "button or ArrowLeft/PageUp",
+    "reset": "button or Home",
+    "sourceDrawer": "button or F; Escape closes",
+    "roleJump": "seven labelled role buttons",
+    "actJump": "six exact Nattu act buttons"
+  },
+  "scenes": [
+    {
+      "index": 1,
+      "id": "opening",
+      "act": "AI Has Accelerated Coding, Not Software Delivery",
+      "role": null,
+      "title": "Faster coding is only the beginning.",
+      "kicker": "THE DELIVERY GAP",
+      "takeaway": "The bottleneck moves from producing code to agreeing intent, carrying it through and judging the result.",
+      "presenterNotes": "Say: Nattu has established the lifecycle problem. Land: faster generation is useful, but it is not the same as dependable delivery."
+    },
+    {
+      "index": 2,
+      "id": "ambiguity",
+      "act": "AI Has Accelerated Coding, Not Software Delivery",
+      "role": "capture-refine",
+      "title": "The request is simple. The behaviour isn’t.",
+      "kicker": "ROLE 01 / CAPTURE & REFINE",
+      "takeaway": "The first useful output is not code. It is a decision-ready set of questions.",
+      "presenterNotes": "Show: select Capture & Refine, then open its role and skill files. Do: point to the separate domain context."
+    },
+    {
+      "index": 3,
+      "id": "agreement",
+      "act": "Reimagining the Lifecycle, From Code Generation to Confidence",
+      "role": "capture-refine",
+      "title": "Turn the request into an agreement.",
+      "kicker": "VERTICAL SLICE / AGREEMENT",
+      "takeaway": "Capture & Refine creates a shared, testable agreement — not merely a longer document.",
+      "presenterNotes": "Prepared walkthrough. Do not describe this as a live autonomous run."
+    },
+    {
+      "index": 4,
+      "id": "separation",
+      "act": "Reimagining the Lifecycle, From Code Generation to Confidence",
+      "role": "capture-refine",
+      "title": "Separate what travels from what belongs here.",
+      "kicker": "METHOD × CONTEXT",
+      "takeaway": "The questions can travel across products. The business answers usually cannot.",
+      "presenterNotes": "Show: expand the full skill, then the domain file. Land: domain truth remains human-owned."
+    },
+    {
+      "index": 5,
+      "id": "lifecycle",
+      "act": "Reimagining the Lifecycle, From Code Generation to Confidence",
+      "role": null,
+      "title": "Carry intent through six explicit decisions.",
+      "kicker": "THE REIMAGINED LIFECYCLE",
+      "takeaway": "Intent → Build → Prove → Merge → Release → Learn.",
+      "presenterNotes": "Keep merge and release as separate decisions. Then move to Nattu’s four capabilities."
+    },
+    {
+      "index": 6,
+      "id": "capabilities",
+      "act": "The Four Capabilities of an Agentic SDLC",
+      "role": null,
+      "title": "Four capabilities make the lifecycle dependable.",
+      "kicker": "THE FOUR CAPABILITIES OF AN AGENTIC SDLC",
+      "takeaway": "Capability connects faster production to confidence and control.",
+      "presenterNotes": "Use these exact capability names. Do not rename them as the four journey chapters."
+    },
+    {
+      "index": 7,
+      "id": "design",
+      "act": "From Theory to Practice, One Change Travels Through the SDLC",
+      "role": "design",
+      "title": "Design makes the behaviour visible before planning the build.",
+      "kicker": "02 / DESIGN",
+      "takeaway": "Design precedes planning so implementation is not forced to invent the user experience.",
+      "presenterNotes": "Land the sequence explicitly: Capture & Refine → Design → Planner."
+    },
+    {
+      "index": 8,
+      "id": "planner",
+      "act": "From Theory to Practice, One Change Travels Through the SDLC",
+      "role": "planner",
+      "title": "The plan names the path and the proof.",
+      "kicker": "03 / PLANNER",
+      "takeaway": "A plan is useful when the Builder and Tester can tell what done means.",
+      "presenterNotes": "Show: role and skill source. Point out the explicit stop condition."
+    },
+    {
+      "index": 9,
+      "id": "builder",
+      "act": "From Theory to Practice, One Change Travels Through the SDLC",
+      "role": "builder",
+      "title": "Build the bounded change — and preserve the agreement.",
+      "kicker": "04 / BUILDER",
+      "takeaway": "The Builder does not silently resolve product ambiguity in code.",
+      "presenterNotes": "Use the worked-example file if present; label all example artefacts as prepared."
+    },
+    {
+      "index": 10,
+      "id": "tester",
+      "act": "From Theory to Practice, One Change Travels Through the SDLC",
+      "role": "tester",
+      "title": "Evidence answers a claim — not every possible question.",
+      "kicker": "05 / TESTER",
+      "takeaway": "Not run is not passed. Old evidence does not prove the current change.",
+      "presenterNotes": "Do not invent execution results. Open repository evidence only when present."
+    },
+    {
+      "index": 11,
+      "id": "reviewer",
+      "act": "Closing the Confidence Gaps, What Changed?",
+      "role": "reviewer",
+      "title": "Why should we trust this change?",
+      "kicker": "06 / REVIEWER · HONEST MODEL",
+      "takeaway": "Leadership needs the basis for confidence — not a fabricated product score.",
+      "presenterNotes": "Land: merge confidence is not release confidence. Do not imply an NFR X-ray or merge score was executed."
+    },
+    {
+      "index": 12,
+      "id": "boundaries",
+      "act": "Closing the Confidence Gaps, What Changed?",
+      "role": "reviewer",
+      "title": "Ready to merge is not ready to release.",
+      "kicker": "DECISION BOUNDARIES",
+      "takeaway": "A reviewed change is not a blanket guarantee about the production system.",
+      "presenterNotes": "No product score is shown; no release claim is made."
+    },
+    {
+      "index": 13,
+      "id": "curator",
+      "act": "Closing the Confidence Gaps, What Changed?",
+      "role": "curator",
+      "title": "One finding can improve three different things.",
+      "kicker": "07 / CURATOR",
+      "takeaway": "The loop closes only when learning changes a later decision or delivery outcome.",
+      "presenterNotes": "Show: Curator source files. Land: version, review, maintain and recheck."
+    },
+    {
+      "index": 14,
+      "id": "controls",
+      "act": "From Masterclass to Enterprise Adoption",
+      "role": null,
+      "title": "Scale the method — not uncontrolled access.",
+      "kicker": "CONTROLLED ADOPTION",
+      "takeaway": "Permission to inspect a repository does not imply permission to deploy.",
+      "presenterNotes": "No claim of enterprise adoption. This is an operating pattern for evaluation."
+    },
+    {
+      "index": 15,
+      "id": "adoption",
+      "act": "From Masterclass to Enterprise Adoption",
+      "role": null,
+      "title": "Adopt around one bottleneck, then inspect the result.",
+      "kicker": "START SMALL",
+      "takeaway": "The objective is a better accepted outcome — not the cheapest first answer.",
+      "presenterNotes": "The free 90-minute masterclass refers to the overall event. This contribution’s working 50-minute slot remains provisional. Do not imply a human rehearsal occurred."
+    },
+    {
+      "index": 16,
+      "id": "close",
+      "act": "From Masterclass to Enterprise Adoption",
+      "role": null,
+      "title": "Start with one bottleneck. Improve the next change.",
+      "kicker": "THE NEXT CHANGE",
+      "takeaway": "Every feature can improve the product, the domain understanding and the capability used next time.",
+      "presenterNotes": "Reset returns to the opening. Recovery: PDF and PPTX carry the same scene sequence offline."
+    }
+  ]
+}

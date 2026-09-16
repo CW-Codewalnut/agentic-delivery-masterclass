@@ -1,0 +1,53 @@
+{
+  "source": "presentation/scenes.json",
+  "controls": {
+    "next": "button or ArrowRight/PageDown/Space",
+    "back": "button or ArrowLeft/PageUp",
+    "reset": "button or Home",
+    "sourceDrawer": "button or F; Escape closes",
+    "roleJump": "seven labelled role buttons",
+    "actJump": "six exact Nattu act buttons"
+  },
+  "scenes": [
+    {
+      "index": 1,
+      "id": "opening",
+      "act": "AI Has Accelerated Coding, Not Software Delivery",
+      "role": null,
+      "title": "Faster coding is only the beginning.",
+      "kicker": "THE DELIVERY GAP",
+      "takeaway": "The bottleneck moves from producing code to agreeing intent, carrying it through and judging the result.",
+      "presenterNotes": "Say: Nattu has established the lifecycle problem. Land: faster generation is useful, but it is not the same as dependable delivery."
+    },
+    {
+      "index": 2,
+      "id": "ambiguity",
+      "act": "AI Has Accelerated Coding, Not Software Delivery",
+      "role": "capture-refine",
+      "title": "The request is simple. The behaviour isn’t.",
+      "kicker": "ROLE 01 / CAPTURE & REFINE",
+      "takeaway": "The first useful output is not code. It is a decision-ready set of questions.",
+      "presenterNotes": "Show: select Capture & Refine, then open its role and skill files. Do: point to the separate domain context."
+    },
+    {
+      "index": 3,
+      "id": "agreement",
+      "act": "Reimagining the Lifecycle, From Code Generation to Confidence",
+      "role": "capture-refine",
+      "title": "Turn the request into an agreement.",
+      "kicker": "VERTICAL SLICE / AGREEMENT",
+      "takeaway": "Capture & Refine creates a shared, testable agreement — not merely a longer document.",
+      "presenterNotes": "Prepared walkthrough. Do not describe this as a live autonomous run."
+    },
+    {
+      "index": 4,
+      "id": "separation",
+      "act": "Reimagining the Lifecycle, From Code Generation to Confidence",
+      "role": "capture-refine",
+      "title": "Separate what travels from what belongs here.",
+      "kicker": "METHOD × CONTEXT",
+      "takeaway": "The questions can travel across products. The business answers usually cannot.",
+      "presenterNotes": "Show: expand the full skill, then the domain file. Land: domain truth remains human-owned."
+    }
+  ]
+}

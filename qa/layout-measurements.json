@@ -1,0 +1,114 @@
+[
+  {
+    "id": "scene-opening",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-ambiguity",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-agreement",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-separation",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-lifecycle",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-capabilities",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-design",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-planner",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-builder",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-tester",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-reviewer",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-boundaries",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-curator",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-controls",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-adoption",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  },
+  {
+    "id": "scene-close",
+    "scrollWidth": 1220,
+    "clientWidth": 1220,
+    "scrollHeight": 785,
+    "clientHeight": 785
+  }
+]

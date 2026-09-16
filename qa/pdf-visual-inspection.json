@@ -1,0 +1,8 @@
+{
+  "method": "Every rasterised PDF page inspected individually at full rendered size (1.4x)",
+  "pagesInspected": 16,
+  "passes": 16,
+  "failures": [],
+  "checks": ["clipping", "overlap", "unreadable text", "broken layout", "visual defects"],
+  "status": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "html": "web/index.html",
+  "contract": "presentation/scene-control-contract.json",
+  "scenes": 16,
+  "embedded_files": 33,
+  "missing": [],
+  "pptx": "presentation/Masterclass-Experience.pptx",
+  "pdf": "presentation/Masterclass-Experience.pdf",
+  "downloads": [
+    "web/downloads/Masterclass-Experience.pdf",
+    "web/downloads/Masterclass-Experience.pptx",
+    "web/downloads/Presenter-Script.md",
+    "web/downloads/Presenter-Cue-Sheet.md",
+    "web/downloads/Presenter-Timing.md"
+  ]
+}

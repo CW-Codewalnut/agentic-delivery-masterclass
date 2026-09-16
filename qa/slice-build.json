@@ -1,0 +1,7 @@
+{
+  "html": "web/capture-refine-slice.html",
+  "contract": "presentation/slice-scene-control-contract.json",
+  "scenes": 4,
+  "embedded_files": 33,
+  "missing": []
+}

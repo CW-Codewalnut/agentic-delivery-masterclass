@@ -1,0 +1,239 @@
+{
+  "embeddedFiles": 33,
+  "missingDeclaredByBuild": [],
+  "failures": [],
+  "status": "PASS",
+  "checks": [
+    {
+      "path": "roles/01-capture-refine.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "b870afd917d32f2c7130ff96aa4345d75d1d749fb6abec624f6773979cc86d9f"
+    },
+    {
+      "path": "skills/capture-refine/SKILL.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "00ba8911346f712418a45c6fb03c4eea2cc33c75607b417e7b1d3025a6a83fc1"
+    },
+    {
+      "path": "roles/02-design.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "44dea710adacb2659e2baa24153a60fe84d1f4cc1165b75637d82e713dec5ee3"
+    },
+    {
+      "path": "skills/design/SKILL.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "aa85aa9ba63d695cf12c3213ae52829ec9be3723661451fc209c061ebfe7c8ee"
+    },
+    {
+      "path": "roles/03-planner.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "44ed184d167dfddd0f5559c4769ed34262adab4190a210ecfd8a410f5aef9695"
+    },
+    {
+      "path": "skills/planner/SKILL.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "a681c652d0f893aaf6b2106ffb9b28665b5c2250e0a9bed1d1c2d22723e7d572"
+    },
+    {
+      "path": "roles/04-builder.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "15f3422ea50434e08868a0b40050faaffcf27e2f5123aaa49f1992f6dc6ca276"
+    },
+    {
+      "path": "skills/builder/SKILL.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "f072d06b74698aa7b0c20ca36537f165869d64d86116e71da5bc7cc2f502e505"
+    },
+    {
+      "path": "roles/05-tester.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "956ce1f65d512536965e08b74abf645b877fb75e3efbbcb6072235886bea1a8c"
+    },
+    {
+      "path": "skills/tester/SKILL.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "73353d42f774eb10f581a51e6416b8006bda3196023892869d44b8bb344d19b6"
+    },
+    {
+      "path": "roles/06-reviewer.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "8e830dafcf9afa4de017788094a8e9fe9e4da937e7a68a5de66e15f80013f15d"
+    },
+    {
+      "path": "skills/reviewer/SKILL.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "c11a87fca19ad1a6fd5f1318a1ea860ef45417b90773b324e5ce0ec374d872b3"
+    },
+    {
+      "path": "roles/07-curator.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "70a77e19be0ba3d31cedb42eab0012a65745b2697bf20d518055451d86065d59"
+    },
+    {
+      "path": "skills/curator/SKILL.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "094b454014bcbf15c18467ce9a8ef73a124152ede0b8e849a998a6abff92ece9"
+    },
+    {
+      "path": "domain/order-cancellation.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "ae73d9912aa60107bb1314973bf4bf45e2cd0ad035a941f4ab965ca68e6cd457"
+    },
+    {
+      "path": "docs/worked-example.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "9aa2fd093d77a046c59cec90f87b0d567d60a844cf20f625f6021eb9eefce7a9"
+    },
+    {
+      "path": "README.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "e163aa43733d0caafb1dd27e32aafea0f0610bf977363c1ee39f31d6d1ec9a66"
+    },
+    {
+      "path": "docs/traceability.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "e3b4bf7b06329b39cd9febcd1cdb18d42d19a427fb63fc5b6f36b49c97caa107"
+    },
+    {
+      "path": "tests/test_content_contract.py",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "436a788b5e8c24b78bcaefe67cdee768055f2df888c5f1e4144cfeb2f1c33aeb"
+    },
+    {
+      "path": "tests/test_order_cancellation.py",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "e168e33f8948f689ba79f45cf64af6c0f93d5c6c61540d3f0a884c7aad483898"
+    },
+    {
+      "path": "worked-example/00-intake.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "8f693d8a7fe79d8a43c24cf647521915ef4aabd519b948cd1c86886aa998a4da"
+    },
+    {
+      "path": "worked-example/01-decisions.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "e6a5c8fe9711b0a7cf62b557fbe95a2a8a0b1f0c537675f0b753222880ae6e6c"
+    },
+    {
+      "path": "worked-example/02-prd.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "0b26ee41d10054da8e5ee5f7d35be4618b0a2f4b7231f89052127e57e62292ca"
+    },
+    {
+      "path": "worked-example/03-design.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "47f9ca4b30ef437c628ea28c8ddd11e2c22aa7f7836a484bc85884e40ce853f0"
+    },
+    {
+      "path": "worked-example/04-plan.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "9a8c45e1ffc076e586d6db9cd98227ff4fb952134a929a675b4f79714b0a96f4"
+    },
+    {
+      "path": "worked-example/05-review.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "4775e451119ec45ecd3e52f1fb8e653f3b563ce5d7b68e511c3c727f9048814b"
+    },
+    {
+      "path": "worked-example/06-curation.md",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "fac2ff384321fcfeee6dcb22e06a13e176b64d0a178b5221e64bc759d59b6b01"
+    },
+    {
+      "path": "worked-example/evidence/green.txt",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "f24dca145550c9f0159d110e004730f384b74fcbe86ebaf19c0120834525f200"
+    },
+    {
+      "path": "worked-example/evidence/red.txt",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "ea4de0ad80bd6068bdbec866ddeabbdc54adb72ccdaa91a73e3ea91ed16c8947"
+    },
+    {
+      "path": "worked-example/evidence/reproduce_idempotency_negative_control.py",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "06c98f3e77788c1dfe1df3d013cd6c0a9b0e0d6c1b2e78d01ef2ed26fac2710b"
+    },
+    {
+      "path": "worked-example/evidence/semantic-red.txt",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "db66f1ed8756e2dfb19f0baee213d2c45ba460ba7fffdd1c148172f837f1e544"
+    },
+    {
+      "path": "worked-example/evidence/verification.txt",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "4c9d2239437711754edad1c1a5052da75ee59c70c29edbae900b28c8871c22c0"
+    },
+    {
+      "path": "worked-example/order_cancellation.py",
+      "exists": true,
+      "contentMatch": true,
+      "sha256Match": true,
+      "sha256": "15f51a27afe8e5401b005a5d330713bbb0a89cab12136ce9e93dbcfc1f0c076b"
+    }
+  ]
+}

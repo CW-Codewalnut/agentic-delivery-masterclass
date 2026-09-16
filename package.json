@@ -1,0 +1,15 @@
+{
+  "name": "masterclass-experience",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": ".venv/bin/python scripts/build_experience.py",
+    "build:slice": ".venv/bin/python scripts/build_experience.py --slice --skip-deck",
+    "test": "playwright test && python3 scripts/sanitize_playwright_results.py",
+    "test:visual": "playwright test tests/visual.spec.js"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.55.0"
+  }
+}

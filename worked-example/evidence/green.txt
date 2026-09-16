@@ -1,0 +1,9 @@
+GREEN evidence — final implementation and content contract
+Captured: 2026-09-16T12:50:13Z
+Runtime: Python 3.9.6
+Command: python3 -m unittest discover -s tests -v
+Exit code: 0
+
+The final executed output is reproduced in `verification.txt`; it reports 16 tests and `OK`.
+
+Interpretation: the current repository passes twelve order-cancellation behavior tests and four repository content-contract tests. This does not extend beyond the claim boundaries in `docs/traceability.md`.

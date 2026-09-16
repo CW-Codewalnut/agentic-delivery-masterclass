@@ -1,0 +1,30 @@
+Semantic negative-control RED — exact replay idempotency
+Captured: 2026-09-16T12:48:06Z
+Runtime: Python 3.9.6
+Command: python3 worked-example/evidence/reproduce_idempotency_negative_control.py
+Exit code: 1 (expected RED)
+Mutation: suppress exact replay return and continue decision processing
+
+Proof identities (SHA-256):
+- reproducer: 06c98f3e77788c1dfe1df3d013cd6c0a9b0e0d6c1b2e78d01ef2ed26fac2710b
+- unmutated implementation: 15f51a27afe8e5401b005a5d330713bbb0a89cab12136ce9e93dbcfc1f0c076b
+- behavior tests: e168e33f8948f689ba79f45cf64af6c0f93d5c6c61540d3f0a884c7aad483898
+
+The reproducer copies the implementation to a temporary directory, applies one exact mutation there, and leaves the repository unchanged.
+
+test_exact_retry_returns_original_result (test_negative_control.ExactReplayNegativeControl) ... FAIL
+
+======================================================================
+FAIL: test_exact_retry_returns_original_result (test_negative_control.ExactReplayNegativeControl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_negative_control.py", line 13, in test_exact_retry_returns_original_result
+    self.assertEqual(first, replay)
+AssertionError: Cance[53 chars]Code.CANCELLED: 'cancelled'>, order_status=<Or[46 chars]on=2) != Cance[53 chars]Code.ALREADY_CANCELLED: 'already_cancelled'>, [62 chars]on=2)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+
+Interpretation: this semantic RED demonstrates that the exact-replay assertion detects loss of the idempotency return guarantee. It is separate from red.txt, which only records the historical missing-module/import failure.

@@ -1,0 +1,24 @@
+RED evidence — before implementation
+Captured: 2026-09-16T12:32:34Z session (pre-implementation run occurred earlier in the same work session)
+Command: python3 -m unittest discover -s tests -v
+Exit code: 1
+
+Sanitized command output (machine-specific absolute frame path replaced by repository-relative path):
+
+test_order_cancellation (unittest.loader._FailedTest) ... ERROR
+
+======================================================================
+ERROR: test_order_cancellation (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_order_cancellation
+Traceback (most recent call last):
+  File "tests/test_order_cancellation.py", line 12, in <module>
+    from order_cancellation import (
+ModuleNotFoundError: No module named 'order_cancellation'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+Interpretation: the executable example was absent, so the test suite could not import it. This is a causal RED for the subsequent implementation, not a seeded product defect.
