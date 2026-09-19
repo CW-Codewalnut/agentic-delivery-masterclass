@@ -1,0 +1,19 @@
+{
+  "classification": "deterministic policy simulation; not live model evaluation",
+  "cases": [
+    {"id":"capture-positive","role":"capture-refine","input":{"request_identity":true,"relevant_evidence":true,"gaps_have_owners":true},"expect":{"status":"draft_for_engineer_completeness_review"}},
+    {"id":"capture-negative","role":"capture-refine","input":{"request_identity":false,"relevant_evidence":true,"gaps_have_owners":false},"expect":{"status":"blocked","reason":"missing_request_identity"}},
+    {"id":"design-positive","role":"design","input":{"prd_approved":true,"revision_match":true,"design_complete":false,"policy_blocker":false,"design_review":true,"editable_authority":false},"expect":{"status":"ready","mode":"specification_only"}},
+    {"id":"design-negative","role":"design","input":{"prd_approved":true,"revision_match":true,"design_complete":false,"policy_blocker":false,"design_review":false,"editable_authority":false,"editable_requested":true},"expect":{"status":"blocked","reason":"missing_editable_authority"}},
+    {"id":"planner-positive","role":"planner","input":{"prd_approved":true,"design_status":"ready","revision_match":true,"business_ambiguity":false,"engineering_acceptance":true},"expect":{"status":"ready_for_build"}},
+    {"id":"planner-negative","role":"planner","input":{"prd_approved":true,"design_status":"ready","revision_match":true,"business_ambiguity":true,"engineering_acceptance":false},"expect":{"status":"blocked","reason":"return_business_ambiguity"}},
+    {"id":"builder-positive","role":"builder","input":{"plan_status":"ready_for_build","change_authority":true,"causal_red":true,"exact_result":true,"material_deviation":false},"expect":{"status":"built_for_test"}},
+    {"id":"builder-negative","role":"builder","input":{"plan_status":"ready_for_build","change_authority":false,"causal_red":true,"exact_result":false,"material_deviation":false},"expect":{"status":"blocked","reason":"missing_change_authority"}},
+    {"id":"tester-positive","role":"tester","input":{"exact_target":true,"expectation_approved":true,"negative_control":"intended_assertion","material_drift":false},"expect":{"status":"tested"}},
+    {"id":"tester-negative","role":"tester","input":{"exact_target":true,"expectation_approved":false,"negative_control":"intended_assertion","material_drift":false},"expect":{"status":"blocked","reason":"return_unknown_expectation"}},
+    {"id":"reviewer-positive","role":"reviewer","input":{"exact_target":true,"matching_inputs":true,"independent":true,"evidence_complete":true,"blocking_findings":false},"expect":{"status":"merge_candidate"}},
+    {"id":"reviewer-negative","role":"reviewer","input":{"exact_target":false,"matching_inputs":true,"independent":true,"evidence_complete":true,"blocking_findings":false},"expect":{"status":"blocked","reason":"missing_target_identity"}},
+    {"id":"curator-positive","role":"curator","input":{"safe_provenance":true,"bounded_claim":true,"owner":true,"contribution_path":true,"adopted":false},"expect":{"status":"proposed"}},
+    {"id":"curator-negative","role":"curator","input":{"safe_provenance":false,"bounded_claim":true,"owner":true,"contribution_path":true,"adopted":false},"expect":{"status":"blocked","reason":"unsafe_provenance"}}
+  ]
+}
