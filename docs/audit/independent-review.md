@@ -2,14 +2,14 @@
 
 ## Review scope
 
-Reviewed the seven canonical roles, routers, supporting skills, prompt renderer, validator, archive builder, README, all 44 legacy supporting skills, and seven legacy role proposals. The published `web/`, `presentation/`, root `roles/`, root `skills/`, and `worked-example/` surfaces were held unchanged.
+Reviewed the seven canonical roles, 25 supporting skills, prompt renderer, validator, archive builder, README source renderer, all 44 legacy supporting skills, and seven legacy umbrella routers. The published `web/`, `presentation/`, root `roles/`, root `skills/`, and `worked-example/` compatibility surfaces were held unchanged.
 
 ## Material findings and corrections
 
 1. **The three-skills-per-agent shape was driving the design.** Migration/configuration safety, concurrency testing, and post-decision history had been folded into always-used skills despite having separate triggers, authority gates, and stop conditions. They are separate skills now. Planner, Builder, Tester, and Curator each expose four supporting skills; the other roles remain at three because their merged procedures form one continuous artifact.
 2. **Behavioural compression had removed decision-changing detail.** Restored prior-decision conflict handling and enterprise gaps in Capture; action availability, focus restoration, keyboard traps, announcement deduplication, responsive/localisation/motion treatment, component deviation, source read-back, and accidental-drift review in Design; idempotency fingerprints, expected-version semantics, durable/distributed boundaries, executable proof, and operator signals in Planner; secret/mixed-version/recovery safety in Builder; explicit topology limits in Tester; assertion-level deletion attacks and evidence rejection in Reviewer; and mixed-record splitting plus append-only governed history in Curator.
-3. **The renderer defeated progressive disclosure.** It always included every supporting skill, omitted the output template, and therefore made the router selection mostly decorative. It now requires explicit repeatable `--skill` selections (or an intentional `--all-skills`) and includes the selected role, router, skills, and template. Invalid cross-role skill names fail closed.
-4. **The repository claimed one canonical source while shipping a destructive embedded generator.** `scripts/build_refined_agent_system.py` could delete and recreate `agent-system/`, overwriting direct contributions. It was removed. Canonical files are edited directly and validated.
+3. **The renderer defeated progressive disclosure.** It always included every supporting skill and omitted the output template. It now requires explicit repeatable `--skill` selections (or an intentional `--all-skills`) and includes the orchestrating role, selected owned skills, and template. Invalid cross-agent skill names fail closed.
+4. **The repository separated roles from their skills.** The canonical source now lives under `agents/<agent>/`, where `ROLE.md` owns routing, gates, handoffs, returns, and stops beside nested skills and the output template. The seven redundant umbrella router skills and obsolete `agent-system/` tree were removed. Shared policy remains single-source under `docs/agent-system/` and is linked by every role.
 5. **Fresh-clone onboarding was not fresh-clone safe.** The main verification block invoked a legacy audit requiring an unpublished sibling proposal, and the README asserted a Python floor not demonstrated by the evidence. Ordinary-checkout commands are now separate from the maintainer-only legacy audit; the README claims only Python 3 standard-library use and records tested execution through the delivery receipt.
 6. **The opening read like an internal provenance note.** The README now opens with the user value and first runnable command. Snapshot provenance, research attribution, licensing, and audit limitations remain available lower in the document rather than occupying the entry path.
 
@@ -30,6 +30,6 @@ The probes show that the revised text contains and routes the intended decisions
 ## Remaining human decisions
 
 - Choose and add the repository's license before redistribution.
-- Decide whether the canonical `agent-system/` should replace or feed the unchanged published site/masterclass snapshot.
+- Decide how the canonical `agents/` source should feed the unchanged published site/masterclass compatibility snapshot.
 - Run repeated, blinded model evaluations across representative hosts/providers before claiming behavioural improvement.
 - Supply host-specific skill discovery, project context, tools, credentials, and authority boundaries for deployment.

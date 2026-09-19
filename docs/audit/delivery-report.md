@@ -1,46 +1,48 @@
 # Delivery report
 
-## Reviewed scope
+## Scope
 
-- Independent worktree from `4fe1fa20da8aca625192220278c83253932efd97`.
-- Compared all seven canonical roles and 28 original canonical skills against the seven legacy role proposals and all 44 legacy supporting skills.
-- Preserved `web/`, `presentation/`, root `roles/`, root `skills/`, and `worked-example/` unchanged.
+- Corrected the reviewed source from `237d4eec3547aeaf65a6abc6a0d537aab879a85a` in a new owned worktree and local branch.
+- Replaced the split `agent-system/roles` and `agent-system/skills` canonical tree with seven agent-owned folders under `agents/`.
+- Preserved `web/`, `presentation/`, root `roles/`, root `skills/`, and `worked-example/` as the unchanged historical compatibility snapshot.
 - Did not push, open a pull request, deploy, or publish.
 
-## Corrections
+## Structural correction
 
-- Recovered decision-changing details lost during compression across Capture, Design, Planner, Builder, Tester, Reviewer, and Curator; see [`independent-review.md`](independent-review.md).
-- Replaced the arbitrary 21-supporting-skill symmetry with 25 skills. Migration/rollout, migration/config safety, concurrency boundaries, and post-decision history now have independent triggers and stops.
-- Changed prompt rendering from unconditional full-role bundles to explicit supporting-skill selection and included the output template.
-- Removed `scripts/build_refined_agent_system.py`, which could overwrite the stated canonical source from embedded definitions.
-- Reworked README onboarding so ordinary fresh-clone checks do not depend on an unpublished proposal path. The maintainer-only legacy audit is separate.
-- Moved internal provenance detail out of the opening while retaining research, evidence, licensing, and publication limits.
+- Each `agents/<agent>/` now owns `ROLE.md`, nested `skills/<skill>/SKILL.md`, and its template.
+- All seven `ROLE.md` files directly orchestrate skill triggers, ordering, skips, decision gates, handoffs, return owners, stop boundaries, and authority limits.
+- Removed all seven redundant umbrella router skills and the obsolete `agent-system/` tree without removing any of the 25 substantive supporting skills.
+- Kept shared semantics and authority policy once under `docs/agent-system/`, explicitly linked by every role.
+- Updated `agents/manifest.json` and all 51 legacy migration mappings: seven old umbrella skills now map to owning `ROLE.md` files; 44 old supporting skills map to the 25 nested canonical skills.
+
+## README and tooling
+
+- README now leads with the conditional workflow and seven GitHub-native agent toggles.
+- Each toggle shows ownership links, a Mermaid role-to-skill/template map, and nested readable copies of the actual `ROLE.md` and `SKILL.md` source text.
+- `scripts/render_readme_agents.py` deterministically renders only the generated README catalogue from canonical sources; `--check` detects drift and never writes role or skill source.
+- Prompt rendering now reads `agents/manifest.json`, includes the orchestrating role plus explicitly selected owned skills and template, and rejects empty, unknown, or cross-agent selections.
+- Validation and archive tooling enforce the agent-first inventory and absence of router/workflow duplication.
 
 ## Verification
 
 | Command/check | Result |
 |---|---|
 | `python3 --version` | Python 3.9.6 |
-| `python3 scripts/audit_legacy_skills.py --source … --out docs/audit` | 51 source files mapped; 7 routers and 44 supporting skills; canonical result 7 routers + 25 supporting skills |
 | `python3 scripts/run_scenario_checks.py` | 14/14 deterministic cases passed |
-| `python3 scripts/validate_agent_system.py` | 7 roles, 7 routers, 25 supporting skills, 7 templates, 51 mappings, 14 scenarios, 0 errors |
-| explicit Planner render | 3 selected supporting skills; output template included; 10,259 bytes |
-| cross-role skill render | rejected with exit 1 |
-| `python3 -m unittest discover -s tests -v` | 16/16 tests passed |
-| Python compilation for maintained scripts | passed |
-| `git diff --check` | passed |
-| protected snapshot diff | no changes under `web/`, `presentation/`, root `roles/`, root `skills/`, or `worked-example/` |
-| `python3 scripts/build_review_archive.py` | 64-file deterministic archive; fresh-extraction validation and selected-skill render passed |
+| `python3 scripts/render_readme_agents.py --check` | README matches all 7 roles and 25 skills |
+| `python3 scripts/validate_agent_system.py` | 7 agents, 7 roles, 25 skills, 7 templates, 51 mappings, 14 scenarios, 0 errors |
+| explicit Planner render | ROLE.md + 3 selected skills + template present; unselected migration skill absent; 10,450 bytes |
+| renderer negative controls | empty, cross-agent, and unknown-agent selections all rejected with exit 1 |
+| `python3 -m unittest discover -s tests -v` | 21/21 tests passed |
+| maintained-script compilation | passed |
+| protected compatibility-snapshot diff | no changes under `web/`, `presentation/`, root `roles/`, root `skills/`, or `worked-example/` |
+| `python3 scripts/build_review_archive.py` | 58-file archive; fresh extraction validation, README parity, selected render, and both selection rejections passed |
+| archive inventory | 7 roles, 25 skills, obsolete `agent-system/` root absent |
 
-## Evidence classification
+## Evidence limits and remaining decisions
 
-- **Executed:** validator, renderer selection/failure paths, audit regeneration, scenario simulator, unit tests, compilation, diff checks, and archive extraction smoke.
-- **Manual model-guided review:** five bounded cases in [`independent-review.md`](independent-review.md). These demonstrate document-guided decisions from this reviewer, not a benchmark.
-- **Not established:** repeated-run invocation reliability, comparison against legacy prompts, cross-provider quality, or production host integration.
-
-## Remaining decisions
-
-1. Add or clarify the project license before redistribution.
-2. Decide whether the canonical system replaces or feeds the unchanged site/masterclass snapshot.
-3. Run blinded repeated model evaluations before claiming behavioural improvement.
-4. Configure host-specific skill discovery, project context, permissions, credentials, and tools before deployment.
+- Structural validation, deterministic scenarios, renderer controls, tests, and fresh-extraction checks were executed. They do not establish model quality or invocation reliability.
+- Repeated-run and cross-provider model evaluation remains unperformed.
+- The historical published site/masterclass snapshot remains a compatibility surface; maintainers still need to decide how it should consume canonical `agents/` content.
+- A project license still needs to be chosen before redistribution.
+- Host-specific context, tools, credentials, and runtime authority remain deployment concerns.

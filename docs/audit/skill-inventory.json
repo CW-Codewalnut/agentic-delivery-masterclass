@@ -6,8 +6,8 @@
     "supporting": 44,
     "repeated_role_boundary_paragraphs": 44,
     "canonical_total": 32,
-    "canonical_umbrella": 7,
-    "canonical_supporting": 25
+    "canonical_supporting": 25,
+    "canonical_roles": 7
   },
   "records": [
     {
@@ -16,10 +16,10 @@
       "kind": "umbrella",
       "sha256": "94eb1adb7ac4395b950da5f1822c54d8a495bb48423384bd92bdfb765cafaa21",
       "word_count": 389,
-      "specific_behavioural_contribution": "routes the builder role across its conditional skills and handoff gate",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is retained as a shorter router.",
+      "specific_behavioural_contribution": "orchestrates the builder role across its conditional skills and handoff gate",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is absorbed into the owning ROLE.md.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/builder/SKILL.md",
+      "canonical_replacement": "agents/builder/ROLE.md",
       "repeated_role_boundary_boilerplate": false
     },
     {
@@ -31,7 +31,7 @@
       "specific_behavioural_contribution": "pins change authority, base identity, environment, and baseline",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `builder-baseline-and-red`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/builder-baseline-and-red/SKILL.md",
+      "canonical_replacement": "agents/builder/skills/builder-baseline-and-red/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -43,7 +43,7 @@
       "specific_behavioural_contribution": "requires a criterion-level causal RED",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `builder-baseline-and-red`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/builder-baseline-and-red/SKILL.md",
+      "canonical_replacement": "agents/builder/skills/builder-baseline-and-red/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -55,7 +55,7 @@
       "specific_behavioural_contribution": "returns material deviations to their decision owner",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `builder-verification-and-deviation`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/builder-verification-and-deviation/SKILL.md",
+      "canonical_replacement": "agents/builder/skills/builder-verification-and-deviation/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -67,7 +67,7 @@
       "specific_behavioural_contribution": "guards authorised migration and configuration changes",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `builder-migration-config-safety`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/builder-migration-config-safety/SKILL.md",
+      "canonical_replacement": "agents/builder/skills/builder-migration-config-safety/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -79,7 +79,7 @@
       "specific_behavioural_contribution": "keeps one implementation increment inside accepted scope",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `builder-bounded-change`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/builder-bounded-change/SKILL.md",
+      "canonical_replacement": "agents/builder/skills/builder-bounded-change/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -91,7 +91,7 @@
       "specific_behavioural_contribution": "binds fresh checks to the exact result",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `builder-verification-and-deviation`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/builder-verification-and-deviation/SKILL.md",
+      "canonical_replacement": "agents/builder/skills/builder-verification-and-deviation/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -103,7 +103,7 @@
       "specific_behavioural_contribution": "captures only current-system constraints needed to state product behaviour safely",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `capture-intake-and-gaps`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/capture-intake-and-gaps/SKILL.md",
+      "canonical_replacement": "agents/capture-refine/skills/capture-intake-and-gaps/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -115,7 +115,7 @@
       "specific_behavioural_contribution": "binds Engineering completeness to an exact PRD revision",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `capture-prd-handoff`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/capture-prd-handoff/SKILL.md",
+      "canonical_replacement": "agents/capture-refine/skills/capture-prd-handoff/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -127,7 +127,7 @@
       "specific_behavioural_contribution": "records engineering evidence without converting it to Product policy",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `capture-engineer-interview`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/capture-engineer-interview/SKILL.md",
+      "canonical_replacement": "agents/capture-refine/skills/capture-engineer-interview/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -139,7 +139,7 @@
       "specific_behavioural_contribution": "turns missing behaviour into owned product decisions",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `capture-intake-and-gaps`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/capture-intake-and-gaps/SKILL.md",
+      "canonical_replacement": "agents/capture-refine/skills/capture-intake-and-gaps/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -151,7 +151,7 @@
       "specific_behavioural_contribution": "writes traceable requirements and acceptance criteria",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `capture-prd-handoff`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/capture-prd-handoff/SKILL.md",
+      "canonical_replacement": "agents/capture-refine/skills/capture-prd-handoff/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -163,7 +163,7 @@
       "specific_behavioural_contribution": "finds changed or conflicting prior product decisions",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `capture-intake-and-gaps`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/capture-intake-and-gaps/SKILL.md",
+      "canonical_replacement": "agents/capture-refine/skills/capture-intake-and-gaps/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -172,10 +172,10 @@
       "kind": "umbrella",
       "sha256": "12f542df51d8e63e5db494a7c95cf45c97f39d1712e4e5512e45c21234263459",
       "word_count": 468,
-      "specific_behavioural_contribution": "routes the capture-refine role across its conditional skills and handoff gate",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is retained as a shorter router.",
+      "specific_behavioural_contribution": "orchestrates the capture-refine role across its conditional skills and handoff gate",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is absorbed into the owning ROLE.md.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/capture-refine/SKILL.md",
+      "canonical_replacement": "agents/capture-refine/ROLE.md",
       "repeated_role_boundary_boilerplate": false
     },
     {
@@ -187,7 +187,7 @@
       "specific_behavioural_contribution": "separates supplied request material from relevant repository evidence",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `capture-intake-and-gaps`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/capture-intake-and-gaps/SKILL.md",
+      "canonical_replacement": "agents/capture-refine/skills/capture-intake-and-gaps/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -196,10 +196,10 @@
       "kind": "umbrella",
       "sha256": "c93b9395bafb1400a98e30f37f024040d9ba72c43baa19a9a684b62eec8a0974",
       "word_count": 427,
-      "specific_behavioural_contribution": "routes the curator role across its conditional skills and handoff gate",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is retained as a shorter router.",
+      "specific_behavioural_contribution": "orchestrates the curator role across its conditional skills and handoff gate",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is absorbed into the owning ROLE.md.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/curator/SKILL.md",
+      "canonical_replacement": "agents/curator/ROLE.md",
       "repeated_role_boundary_boilerplate": false
     },
     {
@@ -211,7 +211,7 @@
       "specific_behavioural_contribution": "selects one governed home and owner",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `curator-proposal-and-history`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/curator-proposal-and-history/SKILL.md",
+      "canonical_replacement": "agents/curator/skills/curator-proposal-and-history/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -223,7 +223,7 @@
       "specific_behavioural_contribution": "binds a narrow learning claim to safe immutable evidence",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `curator-provenance-and-classification`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/curator-provenance-and-classification/SKILL.md",
+      "canonical_replacement": "agents/curator/skills/curator-provenance-and-classification/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -235,7 +235,7 @@
       "specific_behavioural_contribution": "separates skill guidance, repository context, product work, and local detail",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `curator-provenance-and-classification`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/curator-provenance-and-classification/SKILL.md",
+      "canonical_replacement": "agents/curator/skills/curator-provenance-and-classification/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -247,7 +247,7 @@
       "specific_behavioural_contribution": "requires an observed future use before claiming benefit",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `curator-next-use-evaluation`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/curator-next-use-evaluation/SKILL.md",
+      "canonical_replacement": "agents/curator/skills/curator-next-use-evaluation/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -259,7 +259,7 @@
       "specific_behavioural_contribution": "keeps updates proposed until explicit adoption",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `curator-proposal-and-history`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/curator-proposal-and-history/SKILL.md",
+      "canonical_replacement": "agents/curator/skills/curator-proposal-and-history/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -271,7 +271,7 @@
       "specific_behavioural_contribution": "retains accepted, rejected, and superseded history",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `curator-version-history`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/curator-version-history/SKILL.md",
+      "canonical_replacement": "agents/curator/skills/curator-version-history/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -280,10 +280,10 @@
       "kind": "umbrella",
       "sha256": "9788f1928fee49c1fbae080dfdd3d98f46ec5d702d78960362f85bd517608d05",
       "word_count": 446,
-      "specific_behavioural_contribution": "routes the design role across its conditional skills and handoff gate",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is retained as a shorter router.",
+      "specific_behavioural_contribution": "orchestrates the design role across its conditional skills and handoff gate",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is absorbed into the owning ROLE.md.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/design/SKILL.md",
+      "canonical_replacement": "agents/design/ROLE.md",
       "repeated_role_boundary_boilerplate": false
     },
     {
@@ -295,7 +295,7 @@
       "specific_behavioural_contribution": "specifies content, focus, keyboard, announcements, and recovery",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `design-state-interaction-spec`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/design-state-interaction-spec/SKILL.md",
+      "canonical_replacement": "agents/design/skills/design-state-interaction-spec/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -307,7 +307,7 @@
       "specific_behavioural_contribution": "finds uncovered states and Product-policy conflicts",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `design-source-readiness`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/design-source-readiness/SKILL.md",
+      "canonical_replacement": "agents/design/skills/design-source-readiness/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -319,7 +319,7 @@
       "specific_behavioural_contribution": "rejects stale, unapproved, mismatched, or unauthorised Design inputs",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `design-input-readiness`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/design-input-readiness/SKILL.md",
+      "canonical_replacement": "agents/design/skills/design-input-readiness/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -331,7 +331,7 @@
       "specific_behavioural_contribution": "binds Design readiness to exact Product and Design revisions",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `design-source-readiness`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/design-source-readiness/SKILL.md",
+      "canonical_replacement": "agents/design/skills/design-source-readiness/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -343,7 +343,7 @@
       "specific_behavioural_contribution": "maps requirements to visible states and transitions",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `design-state-interaction-spec`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/design-state-interaction-spec/SKILL.md",
+      "canonical_replacement": "agents/design/skills/design-state-interaction-spec/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -355,7 +355,7 @@
       "specific_behavioural_contribution": "separates specification-only output from authorised editable-source mutation",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `design-source-readiness`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/design-source-readiness/SKILL.md",
+      "canonical_replacement": "agents/design/skills/design-source-readiness/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -364,10 +364,10 @@
       "kind": "umbrella",
       "sha256": "caf00d6872d2d448a8363e6bf816716558d8120c5dc0e9852137245c6840c9f0",
       "word_count": 398,
-      "specific_behavioural_contribution": "routes the planner role across its conditional skills and handoff gate",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is retained as a shorter router.",
+      "specific_behavioural_contribution": "orchestrates the planner role across its conditional skills and handoff gate",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is absorbed into the owning ROLE.md.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/planner/SKILL.md",
+      "canonical_replacement": "agents/planner/ROLE.md",
       "repeated_role_boundary_boilerplate": false
     },
     {
@@ -379,7 +379,7 @@
       "specific_behavioural_contribution": "binds Engineering acceptance to an exact plan revision",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `planner-verification-and-handoff`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/planner-verification-and-handoff/SKILL.md",
+      "canonical_replacement": "agents/planner/skills/planner-verification-and-handoff/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -391,7 +391,7 @@
       "specific_behavioural_contribution": "creates dependency-ordered, independently provable increments",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `planner-delivery-slices`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/planner-delivery-slices/SKILL.md",
+      "canonical_replacement": "agents/planner/skills/planner-delivery-slices/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -403,7 +403,7 @@
       "specific_behavioural_contribution": "aligns Product, Design, repository scope, and owners",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `planner-impact-and-invariants`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/planner-impact-and-invariants/SKILL.md",
+      "canonical_replacement": "agents/planner/skills/planner-impact-and-invariants/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -415,7 +415,7 @@
       "specific_behavioural_contribution": "states invariants and real consistency boundaries",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `planner-impact-and-invariants`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/planner-impact-and-invariants/SKILL.md",
+      "canonical_replacement": "agents/planner/skills/planner-impact-and-invariants/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -427,7 +427,7 @@
       "specific_behavioural_contribution": "defines compatibility, rollout, abort, rollback, and reconciliation",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `planner-migration-rollout`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/planner-migration-rollout/SKILL.md",
+      "canonical_replacement": "agents/planner/skills/planner-migration-rollout/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -439,7 +439,7 @@
       "specific_behavioural_contribution": "maps affected seams, contracts, data, and owners",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `planner-impact-and-invariants`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/planner-impact-and-invariants/SKILL.md",
+      "canonical_replacement": "agents/planner/skills/planner-impact-and-invariants/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -451,7 +451,7 @@
       "specific_behavioural_contribution": "maps requirements and risks to checks and operator signals",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `planner-verification-and-handoff`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/planner-verification-and-handoff/SKILL.md",
+      "canonical_replacement": "agents/planner/skills/planner-verification-and-handoff/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -460,10 +460,10 @@
       "kind": "umbrella",
       "sha256": "5e293d04e8d3c7b20e165228de2462c258bda9b88eee96f5a7ea91ed33e58b80",
       "word_count": 397,
-      "specific_behavioural_contribution": "routes the reviewer role across its conditional skills and handoff gate",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is retained as a shorter router.",
+      "specific_behavioural_contribution": "orchestrates the reviewer role across its conditional skills and handoff gate",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is absorbed into the owning ROLE.md.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/reviewer/SKILL.md",
+      "canonical_replacement": "agents/reviewer/ROLE.md",
       "repeated_role_boundary_boilerplate": false
     },
     {
@@ -475,7 +475,7 @@
       "specific_behavioural_contribution": "traces criterion sub-claims across intent, implementation, and proof",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `reviewer-revision-and-acceptance`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/reviewer-revision-and-acceptance/SKILL.md",
+      "canonical_replacement": "agents/reviewer/skills/reviewer-revision-and-acceptance/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -487,7 +487,7 @@
       "specific_behavioural_contribution": "invalidates and reruns evidence after material changes",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `reviewer-decision-and-recheck`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/reviewer-decision-and-recheck/SKILL.md",
+      "canonical_replacement": "agents/reviewer/skills/reviewer-decision-and-recheck/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -499,7 +499,7 @@
       "specific_behavioural_contribution": "asks which defects could leave evidence green",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `reviewer-risk-and-false-green`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/reviewer-risk-and-false-green/SKILL.md",
+      "canonical_replacement": "agents/reviewer/skills/reviewer-risk-and-false-green/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -511,7 +511,7 @@
       "specific_behavioural_contribution": "separates merge recommendation from release confidence",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `reviewer-decision-and-recheck`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/reviewer-decision-and-recheck/SKILL.md",
+      "canonical_replacement": "agents/reviewer/skills/reviewer-decision-and-recheck/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -523,7 +523,7 @@
       "specific_behavioural_contribution": "pins target bytes, upstream revisions, independence, and cutoff",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `reviewer-revision-and-acceptance`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/reviewer-revision-and-acceptance/SKILL.md",
+      "canonical_replacement": "agents/reviewer/skills/reviewer-revision-and-acceptance/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -535,7 +535,7 @@
       "specific_behavioural_contribution": "reviews authorisation, lifecycle, consistency, and disclosure",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `reviewer-risk-and-false-green`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/reviewer-risk-and-false-green/SKILL.md",
+      "canonical_replacement": "agents/reviewer/skills/reviewer-risk-and-false-green/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -544,10 +544,10 @@
       "kind": "umbrella",
       "sha256": "bdf7058e565591b150326a21a4156e2cf12593b3d40833bdc91650995a67d661",
       "word_count": 403,
-      "specific_behavioural_contribution": "routes the tester role across its conditional skills and handoff gate",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is retained as a shorter router.",
+      "specific_behavioural_contribution": "orchestrates the tester role across its conditional skills and handoff gate",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. The orchestration is absorbed into the owning ROLE.md.",
       "decision": "rewrite",
-      "canonical_replacement": "agent-system/skills/tester/SKILL.md",
+      "canonical_replacement": "agents/tester/ROLE.md",
       "repeated_role_boundary_boilerplate": false
     },
     {
@@ -559,7 +559,7 @@
       "specific_behavioural_contribution": "checks outputs, persisted state, side effects, and forbidden mutations",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `tester-adversarial-behaviour`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/tester-adversarial-behaviour/SKILL.md",
+      "canonical_replacement": "agents/tester/skills/tester-adversarial-behaviour/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -571,7 +571,7 @@
       "specific_behavioural_contribution": "tests contention while naming the observed topology boundary",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `tester-concurrency-boundaries`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/tester-concurrency-boundaries/SKILL.md",
+      "canonical_replacement": "agents/tester/skills/tester-concurrency-boundaries/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -583,7 +583,7 @@
       "specific_behavioural_contribution": "classifies every claim before Reviewer handoff",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `tester-defect-and-handoff`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/tester-defect-and-handoff/SKILL.md",
+      "canonical_replacement": "agents/tester/skills/tester-defect-and-handoff/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -595,7 +595,7 @@
       "specific_behavioural_contribution": "reduces failures to revision-bound reproducers",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `tester-defect-and-handoff`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/tester-defect-and-handoff/SKILL.md",
+      "canonical_replacement": "agents/tester/skills/tester-defect-and-handoff/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -607,7 +607,7 @@
       "specific_behavioural_contribution": "maps claims to observable assertions and limits",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `tester-evidence-and-negative-control`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/tester-evidence-and-negative-control/SKILL.md",
+      "canonical_replacement": "agents/tester/skills/tester-evidence-and-negative-control/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -619,7 +619,7 @@
       "specific_behavioural_contribution": "proves the harness detects a semantic defect",
       "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `tester-evidence-and-negative-control`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/tester-evidence-and-negative-control/SKILL.md",
+      "canonical_replacement": "agents/tester/skills/tester-evidence-and-negative-control/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     }
   ]

@@ -10,6 +10,15 @@ from collections import Counter
 from pathlib import Path
 
 UMBRELLAS = {"capture-refine", "design", "planner", "builder", "tester", "reviewer", "curator"}
+OWNER = {
+    "capture": "capture-refine",
+    "design": "design",
+    "planner": "planner",
+    "builder": "builder",
+    "tester": "tester",
+    "reviewer": "reviewer",
+    "curator": "curator",
+}
 MAP = {
     "capture-refine": "capture-refine", "design": "design", "planner": "planner", "builder": "builder", "tester": "tester", "reviewer": "reviewer", "curator": "curator",
     "capture-request-review": "capture-intake-and-gaps", "capture-prior-prd-impact": "capture-intake-and-gaps", "capture-architecture-constraints": "capture-intake-and-gaps", "capture-gap-analysis": "capture-intake-and-gaps",
@@ -71,7 +80,7 @@ CONTRIBUTION = {
 
 def contribution(name: str) -> str:
     if name in UMBRELLAS:
-        return f"routes the {name} role across its conditional skills and handoff gate"
+        return f"orchestrates the {name} role across conditional skills and handoff gates"
     for suffix, text in CONTRIBUTION.items():
         if name.endswith(suffix):
             return text
@@ -104,7 +113,13 @@ def main() -> None:
         decision = "rewrite" if name in UMBRELLAS or name == target else "merge"
         duplicate = (
             "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. "
-            + ("The orchestration is retained as a shorter router." if name in UMBRELLAS else f"Its distinct rule is retained in `{target}`; overlapping inputs, outputs, stops, and authority prose are consolidated there.")
+            + ("The orchestration is absorbed into the owning ROLE.md." if name in UMBRELLAS else f"Its distinct rule is retained in `{target}`; overlapping inputs, outputs, stops, and authority prose are consolidated there.")
+        )
+        owner = next(agent for prefix, agent in OWNER.items() if target == prefix or target.startswith(prefix + "-"))
+        canonical_replacement = (
+            f"agents/{owner}/ROLE.md"
+            if name in UMBRELLAS
+            else f"agents/{owner}/skills/{target}/SKILL.md"
         )
         records.append({
             "source_file": f"skills/{name}/SKILL.md",
@@ -115,7 +130,7 @@ def main() -> None:
             "specific_behavioural_contribution": contribution(name),
             "no_op_or_duplication": duplicate,
             "decision": decision,
-            "canonical_replacement": f"agent-system/skills/{target}/SKILL.md",
+            "canonical_replacement": canonical_replacement,
             "repeated_role_boundary_boilerplate": has_boilerplate,
         })
 
@@ -123,7 +138,7 @@ def main() -> None:
     out.mkdir(parents=True, exist_ok=True)
     inventory = {
         "source": "unpublished local proposal at live-main base d819bff2a9443eaae854665f7e24c940450d8172",
-        "counts": {"total": len(records), "umbrella": sum(r["kind"] == "umbrella" for r in records), "supporting": sum(r["kind"] == "supporting" for r in records), "repeated_role_boundary_paragraphs": repeated, "canonical_total": len(set(MAP.values())), "canonical_umbrella": 7, "canonical_supporting": len(set(MAP.values())) - 7},
+        "counts": {"total": len(records), "umbrella": sum(r["kind"] == "umbrella" for r in records), "supporting": sum(r["kind"] == "supporting" for r in records), "repeated_role_boundary_paragraphs": repeated, "canonical_total": len(set(MAP.values())), "canonical_roles": 7, "canonical_supporting": len(set(MAP.values())) - 7},
         "records": records,
     }
     (out / "skill-inventory.json").write_text(json.dumps(inventory, indent=2) + "\n")
@@ -132,12 +147,12 @@ def main() -> None:
 
     groups = Counter(MAP.values())
     support_total = len(set(MAP.values())) - len(UMBRELLAS)
-    lines = ["# Skill audit findings", "", "## Result", "", f"Audited all **{len(records)}** files: 7 routers and 44 supporting skills. The source repeated the same long role/context/tool paragraph in **{repeated} supporting skills**. The canonical set keeps 7 short routers and consolidates 44 supporting files into {support_total} skills; every source file has an old-to-new mapping.", "", "The count is an outcome, not a target: migration/configuration safety, concurrency testing, and post-decision history remain separate because they have distinct triggers and stop conditions.", "", "This is a document audit. It identifies duplication and weak information hierarchy by inspection; it does not prove model behaviour. Simulated role scenarios are reported separately.", "", "## Decision by file", "", "| Source | Contribution retained | Duplication/no-op finding | Decision | Canonical path |", "|---|---|---|---|---|"]
+    lines = ["# Skill audit findings", "", "## Result", "", f"Audited all **{len(records)}** files: 7 legacy umbrella routers and 44 supporting skills. The source repeated the same long role/context/tool paragraph in **{repeated} supporting skills**. The canonical set absorbs the 7 routing layers into agent-owned ROLE.md files and consolidates 44 supporting files into {support_total} skills; every source file has an old-to-new mapping.", "", "The count is an outcome, not a target: migration/configuration safety, concurrency testing, and post-decision history remain separate because they have distinct triggers and stop conditions.", "", "This is a document audit. It identifies duplication and weak information hierarchy by inspection; it does not prove model behaviour. Simulated role scenarios are reported separately.", "", "## Decision by file", "", "| Source | Contribution retained | Duplication/no-op finding | Decision | Canonical path |", "|---|---|---|---|---|"]
     for r in records:
         source = f"`{r['source_file']}`"
         canonical = f"`{r['canonical_replacement']}`"
         lines.append(f"| {source} | {r['specific_behavioural_contribution']} | repeated generic role/tool boundary; overlapping schema in group of {groups[MAP[r['name']]]} | {r['decision']} | {canonical} |")
-    lines += ["", "## What changed", "", "- Role authority and cross-cutting semantics moved to one role file plus `CONCEPTS.md` and `AUTHORITY.md`.", "- Routers now decide which skill to open; they no longer restate each supporting skill.", "- Supporting skills keep trigger, inputs, ordered procedure, checkable output, and stop condition only.", "- Closely coupled fragments were merged where using one without the other produced an incomplete artifact.", "- Safety gates, revision identity, human authority, negative controls, false-green attacks, and confidence boundaries were retained.", "", "## Limits", "", "The audit does not claim the final prompts outperform the source under live model execution. The repository includes deterministic structural checks and simulated positive/negative gate scenarios; independent content review and model evaluations remain future work."]
+    lines += ["", "## What changed", "", "- Each agent owns one folder containing ROLE.md, nested skills, and its template.", "- ROLE.md now owns skill selection, skips, decision gates, handoffs, return owners, and stop boundaries; the separate router layer was removed.", "- Shared semantics remain single-source in `docs/agent-system/CONCEPTS.md` and `AUTHORITY.md`, linked from every role.", "- Supporting skills keep trigger, inputs, ordered procedure, checkable output, and stop condition only.", "- Closely coupled fragments were merged where using one without the other produced an incomplete artifact.", "- Safety gates, revision identity, human authority, negative controls, false-green attacks, and confidence boundaries were retained.", "", "## Limits", "", "The audit does not claim the final prompts outperform the source under live model execution. The repository includes deterministic structural checks and simulated positive/negative gate scenarios; independent content review and model evaluations remain future work."]
     (out / "skill-audit.md").write_text("\n".join(lines) + "\n")
     print(json.dumps(inventory["counts"], sort_keys=True))
 

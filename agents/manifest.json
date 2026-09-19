@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "canonical_root": "agents",
+  "published_snapshot": {
+    "paths": [
+      "roles",
+      "skills",
+      "worked-example",
+      "web",
+      "presentation"
+    ],
+    "policy": "Historical published compatibility snapshot; not canonical for the agent-first system."
+  },
+  "shared": [
+    "docs/agent-system/CONCEPTS.md",
+    "docs/agent-system/AUTHORITY.md"
+  ],
+  "example": "docs/examples/request-to-handoffs.md",
+  "agents": [
+    {
+      "id": "capture-refine",
+      "name": "Capture & Refine",
+      "outcome": "Turn an ambiguous request into a reviewable, revision-bound PRD without inventing Product policy.",
+      "role": "agents/capture-refine/ROLE.md",
+      "skills": [
+        "agents/capture-refine/skills/capture-intake-and-gaps/SKILL.md",
+        "agents/capture-refine/skills/capture-engineer-interview/SKILL.md",
+        "agents/capture-refine/skills/capture-prd-handoff/SKILL.md"
+      ],
+      "template": "agents/capture-refine/templates/capture-prd.md"
+    },
+    {
+      "id": "design",
+      "name": "Design",
+      "outcome": "Close approved interaction gaps or record that Design is not required.",
+      "role": "agents/design/ROLE.md",
+      "skills": [
+        "agents/design/skills/design-input-readiness/SKILL.md",
+        "agents/design/skills/design-state-interaction-spec/SKILL.md",
+        "agents/design/skills/design-source-readiness/SKILL.md"
+      ],
+      "template": "agents/design/templates/design-readiness.md"
+    },
+    {
+      "id": "planner",
+      "name": "Planner",
+      "outcome": "Produce an accepted implementation, migration, rollback, and proof plan without mutating the repository.",
+      "role": "agents/planner/ROLE.md",
+      "skills": [
+        "agents/planner/skills/planner-impact-and-invariants/SKILL.md",
+        "agents/planner/skills/planner-delivery-slices/SKILL.md",
+        "agents/planner/skills/planner-migration-rollout/SKILL.md",
+        "agents/planner/skills/planner-verification-and-handoff/SKILL.md"
+      ],
+      "template": "agents/planner/templates/planner-handoff.md"
+    },
+    {
+      "id": "builder",
+      "name": "Builder",
+      "outcome": "Implement one authorised increment and return exact causal evidence and deviations.",
+      "role": "agents/builder/ROLE.md",
+      "skills": [
+        "agents/builder/skills/builder-baseline-and-red/SKILL.md",
+        "agents/builder/skills/builder-bounded-change/SKILL.md",
+        "agents/builder/skills/builder-migration-config-safety/SKILL.md",
+        "agents/builder/skills/builder-verification-and-deviation/SKILL.md"
+      ],
+      "template": "agents/builder/templates/builder-receipt.md"
+    },
+    {
+      "id": "tester",
+      "name": "Tester",
+      "outcome": "Produce independent adversarial evidence bounded to exact bytes, environment, and topology.",
+      "role": "agents/tester/ROLE.md",
+      "skills": [
+        "agents/tester/skills/tester-evidence-and-negative-control/SKILL.md",
+        "agents/tester/skills/tester-adversarial-behaviour/SKILL.md",
+        "agents/tester/skills/tester-concurrency-boundaries/SKILL.md",
+        "agents/tester/skills/tester-defect-and-handoff/SKILL.md"
+      ],
+      "template": "agents/tester/templates/tester-evidence.md"
+    },
+    {
+      "id": "reviewer",
+      "name": "Reviewer",
+      "outcome": "Issue a bounded recommendation after independently reconciling intent, implementation, and proof.",
+      "role": "agents/reviewer/ROLE.md",
+      "skills": [
+        "agents/reviewer/skills/reviewer-revision-and-acceptance/SKILL.md",
+        "agents/reviewer/skills/reviewer-risk-and-false-green/SKILL.md",
+        "agents/reviewer/skills/reviewer-decision-and-recheck/SKILL.md"
+      ],
+      "template": "agents/reviewer/templates/reviewer-decision.md"
+    },
+    {
+      "id": "curator",
+      "name": "Curator",
+      "outcome": "Route proven learning to one governed destination without confusing proposal, adoption, and benefit.",
+      "role": "agents/curator/ROLE.md",
+      "skills": [
+        "agents/curator/skills/curator-provenance-and-classification/SKILL.md",
+        "agents/curator/skills/curator-proposal-and-history/SKILL.md",
+        "agents/curator/skills/curator-version-history/SKILL.md",
+        "agents/curator/skills/curator-next-use-evaluation/SKILL.md"
+      ],
+      "template": "agents/curator/templates/curator-learning.md"
+    }
+  ]
+}

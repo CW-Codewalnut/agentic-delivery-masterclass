@@ -1,7 +1,17 @@
 {
   "archive": "dist/seven-agent-system.zip",
-  "sha256": "362742a321492718861a4049ff374543e37188340dcfd10ed0acae899387c2b5",
-  "files": 64,
+  "sha256": "828e7b3192d93e60bb0cd803a581144de8bd0330d7221debad523cc714caaa49",
+  "files": 58,
+  "layout": "agents/<agent>/{ROLE.md,skills/,templates/}",
+  "inventory": {
+    "agents": 7,
+    "roles": 7,
+    "skills": 25,
+    "templates": 7
+  },
   "fresh_extraction_validation": true,
-  "fresh_extraction_capture_render": true
+  "fresh_extraction_readme_source_parity": true,
+  "fresh_extraction_selected_render": true,
+  "fresh_extraction_empty_selection_rejected": true,
+  "fresh_extraction_cross_agent_selection_rejected": true
 }
