@@ -41,6 +41,7 @@
       "skills": [
         "agent-system/skills/planner-impact-and-invariants/SKILL.md",
         "agent-system/skills/planner-delivery-slices/SKILL.md",
+        "agent-system/skills/planner-migration-rollout/SKILL.md",
         "agent-system/skills/planner-verification-and-handoff/SKILL.md"
       ],
       "template": "agent-system/templates/planner-handoff.md"
@@ -52,6 +53,7 @@
       "skills": [
         "agent-system/skills/builder-baseline-and-red/SKILL.md",
         "agent-system/skills/builder-bounded-change/SKILL.md",
+        "agent-system/skills/builder-migration-config-safety/SKILL.md",
         "agent-system/skills/builder-verification-and-deviation/SKILL.md"
       ],
       "template": "agent-system/templates/builder-receipt.md"
@@ -63,6 +65,7 @@
       "skills": [
         "agent-system/skills/tester-evidence-and-negative-control/SKILL.md",
         "agent-system/skills/tester-adversarial-behaviour/SKILL.md",
+        "agent-system/skills/tester-concurrency-boundaries/SKILL.md",
         "agent-system/skills/tester-defect-and-handoff/SKILL.md"
       ],
       "template": "agent-system/templates/tester-evidence.md"
@@ -85,6 +88,7 @@
       "skills": [
         "agent-system/skills/curator-provenance-and-classification/SKILL.md",
         "agent-system/skills/curator-proposal-and-history/SKILL.md",
+        "agent-system/skills/curator-version-history/SKILL.md",
         "agent-system/skills/curator-next-use-evaluation/SKILL.md"
       ],
       "template": "agent-system/templates/curator-learning.md"

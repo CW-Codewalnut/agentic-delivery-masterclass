@@ -16,7 +16,6 @@ INCLUDE_DIRS = ("agent-system", "docs/audit", "docs/research", "tests/scenarios"
 INCLUDE_FILES = (
     "README.md",
     "scripts/audit_legacy_skills.py",
-    "scripts/build_refined_agent_system.py",
     "scripts/build_review_archive.py",
     "scripts/render_agent_prompt.py",
     "scripts/run_scenario_checks.py",
@@ -48,7 +47,7 @@ def main() -> None:
         with zipfile.ZipFile(OUT) as zf: zf.extractall(td)
         subprocess.run(["python3", "scripts/validate_agent_system.py", "--root", td], cwd=td, check=True)
         rendered = Path(td) / "capture-refine-agent.md"
-        subprocess.run(["python3", "scripts/render_agent_prompt.py", "capture-refine", "--output", str(rendered)], cwd=td, check=True)
+        subprocess.run(["python3", "scripts/render_agent_prompt.py", "capture-refine", "--skill", "capture-intake-and-gaps", "--output", str(rendered)], cwd=td, check=True)
         if rendered.stat().st_size < 1000: raise SystemExit("rendered onboarding prompt unexpectedly small")
     receipt = {"archive":str(OUT.relative_to(ROOT)),"sha256":digest,"files":len(selected),"fresh_extraction_validation":True,"fresh_extraction_capture_render":True}
     (ROOT / "docs/audit/archive-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")

@@ -46,7 +46,8 @@ def main() -> None:
     actual_templates = {str(p.relative_to(root)) for p in (root / "agent-system/templates").glob("*.md")}
     if declared_roles != actual_roles: errors.append(f"role membership mismatch: declared={len(declared_roles)} actual={len(actual_roles)}")
     if declared_skills | declared_support != actual_skills: errors.append(f"skill membership/orphan mismatch: declared={len(declared_skills | declared_support)} actual={len(actual_skills)}")
-    if len(declared_skills) != 7 or len(declared_support) != 21: errors.append("expected 7 umbrella and 21 supporting skills")
+    if len(declared_skills) != 7: errors.append("expected seven router skills")
+    if not declared_support: errors.append("manifest declares no supporting skills")
     if declared_templates != actual_templates or len(actual_templates) != 7: errors.append("template membership mismatch")
 
     support_counts = {s: sum(s in a["skills"] for a in agents) for s in declared_support}
@@ -85,7 +86,8 @@ def main() -> None:
 
     audit = json.loads((root / "docs/audit/skill-inventory.json").read_text())
     counts = audit["counts"]
-    if (counts["total"], counts["umbrella"], counts["supporting"], counts["canonical_total"]) != (51, 7, 44, 28):
+    expected_canonical = len(declared_skills | declared_support)
+    if (counts["total"], counts["umbrella"], counts["supporting"]) != (51, 7, 44) or counts["canonical_total"] != expected_canonical:
         errors.append(f"unexpected audit counts: {counts}")
     mapping = json.loads((root / "docs/audit/legacy-to-canonical.json").read_text())
     if len(mapping) != 51: errors.append("legacy map must cover all 51 source skills")

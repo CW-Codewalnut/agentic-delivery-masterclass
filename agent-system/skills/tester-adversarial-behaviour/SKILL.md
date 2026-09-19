@@ -1,21 +1,22 @@
 ---
 name: tester-adversarial-behaviour
-description: Use when executing acceptance and risk checks across behaviour, side effects, repeats, failures, and concurrency.
+description: Use when executing acceptance checks across behaviour, side effects, repeats, failures, and recovery.
 ---
 
-# tester-adversarial-behaviour
+# Challenge behaviour and side effects
 
 ## Inputs
-Evidence plan, restored exact target, stable fixtures, and declared process/store/integration boundary.
+Evidence plan, restored exact target, stable fixtures, public seams, state-inspection path, and side-effect contract.
 
 ## Procedure
-1. Exercise success and applicable refusal/error states through public seams.
-2. Assert output, persisted state/version, every required side effect, and every forbidden mutation.
-3. Exercise exact replay, changed-key repetition, stale state, partial failure, and recovery where relevant.
-4. Synchronise concurrency attempts when race behaviour matters; report only the topology actually observed.
+1. Exercise applicable success, invalid, permission, lifecycle refusal, conflict, error, partial-failure, and recovery states through public seams.
+2. Assert returned output, persisted state/version, every required side effect, and every forbidden mutation; explicitly classify omissions.
+3. Exercise exact replay, changed-key repetition, stale versions, navigation/retry boundaries, and uncertain outcomes where relevant.
+4. Preserve case-level commands, exits, fixtures, assertions, target identity, and evidence locators.
+5. If observed state conflicts with approved policy, stop and return the expectation to its owner rather than editing fixtures.
 
 ## Output
-Revision-bound receipts for each case with command, exit, assertions, evidence locator, and topology limit.
+Revision-bound case receipts with explicit behavioural and side-effect coverage and omissions.
 
 ## Stop condition
-Do not generalise one-process or in-memory results to distributed, durable, or production behaviour.
+Stop when fixture state or side-effect storage is unknown, evidence targets other bytes, the environment cannot observe the claim, or expected behaviour is unresolved.

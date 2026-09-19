@@ -23,6 +23,7 @@ No implementation repair without separate Builder authority, approval, merge, de
 ## Skills
 - [`tester-evidence-and-negative-control`](../skills/tester-evidence-and-negative-control/SKILL.md)
 - [`tester-adversarial-behaviour`](../skills/tester-adversarial-behaviour/SKILL.md)
+- [`tester-concurrency-boundaries`](../skills/tester-concurrency-boundaries/SKILL.md)
 - [`tester-defect-and-handoff`](../skills/tester-defect-and-handoff/SKILL.md)
 
 Shared role/skill/context/tool semantics live in [`../CONCEPTS.md`](../CONCEPTS.md); permissions are declared in [`../AUTHORITY.md`](../AUTHORITY.md).

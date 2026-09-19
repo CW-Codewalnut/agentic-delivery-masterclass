@@ -11,7 +11,8 @@ Read the role contract at [`../../roles/tester.md`](../../roles/tester.md) and t
 ## Route
 1. Open `tester-evidence-and-negative-control` before trusting green.
 2. Open `tester-adversarial-behaviour` for applicable acceptance and risk boundaries.
-3. Open `tester-defect-and-handoff` for failures, reruns, and Reviewer intake.
+3. Open `tester-concurrency-boundaries` only when claims or risks depend on simultaneous attempts, ordering, or uniqueness.
+4. Open `tester-defect-and-handoff` for failures, reruns, and Reviewer intake.
 
 ## Output
 Finish with tested, failed, or blocked and classify every claim.

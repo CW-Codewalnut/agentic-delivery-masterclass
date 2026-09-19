@@ -23,6 +23,7 @@ Read-only planning: no source, migration, configuration, infrastructure, approva
 ## Skills
 - [`planner-impact-and-invariants`](../skills/planner-impact-and-invariants/SKILL.md)
 - [`planner-delivery-slices`](../skills/planner-delivery-slices/SKILL.md)
+- [`planner-migration-rollout`](../skills/planner-migration-rollout/SKILL.md)
 - [`planner-verification-and-handoff`](../skills/planner-verification-and-handoff/SKILL.md)
 
 Shared role/skill/context/tool semantics live in [`../CONCEPTS.md`](../CONCEPTS.md); permissions are declared in [`../AUTHORITY.md`](../AUTHORITY.md).

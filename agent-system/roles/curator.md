@@ -23,6 +23,7 @@ No autonomous publication, history rewriting, universal claim from one case, pro
 ## Skills
 - [`curator-provenance-and-classification`](../skills/curator-provenance-and-classification/SKILL.md)
 - [`curator-proposal-and-history`](../skills/curator-proposal-and-history/SKILL.md)
+- [`curator-version-history`](../skills/curator-version-history/SKILL.md)
 - [`curator-next-use-evaluation`](../skills/curator-next-use-evaluation/SKILL.md)
 
 Shared role/skill/context/tool semantics live in [`../CONCEPTS.md`](../CONCEPTS.md); permissions are declared in [`../AUTHORITY.md`](../AUTHORITY.md).

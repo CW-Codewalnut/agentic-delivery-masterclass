@@ -5,9 +5,9 @@
     "umbrella": 7,
     "supporting": 44,
     "repeated_role_boundary_paragraphs": 44,
-    "canonical_total": 28,
+    "canonical_total": 32,
     "canonical_umbrella": 7,
-    "canonical_supporting": 21
+    "canonical_supporting": 25
   },
   "records": [
     {
@@ -65,9 +65,9 @@
       "sha256": "20a7a16e90deeb1a9ff97f29a2eba181db508bad6f605fc392d32b62792e64d9",
       "word_count": 255,
       "specific_behavioural_contribution": "guards authorised migration and configuration changes",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `builder-verification-and-deviation`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
-      "decision": "merge",
-      "canonical_replacement": "agent-system/skills/builder-verification-and-deviation/SKILL.md",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `builder-migration-config-safety`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
+      "decision": "rewrite",
+      "canonical_replacement": "agent-system/skills/builder-migration-config-safety/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -269,9 +269,9 @@
       "sha256": "f64f7028a401664abd432ef0f69a5eb0acbef7008ebcb86092c1cdbc2b4c82b4",
       "word_count": 290,
       "specific_behavioural_contribution": "retains accepted, rejected, and superseded history",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `curator-proposal-and-history`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `curator-version-history`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/curator-proposal-and-history/SKILL.md",
+      "canonical_replacement": "agent-system/skills/curator-version-history/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -425,9 +425,9 @@
       "sha256": "e3fababcf6a9c58b034c0f35c1e5f50060b93a95e7f1a6f33e895be8dc5b6cb5",
       "word_count": 279,
       "specific_behavioural_contribution": "defines compatibility, rollout, abort, rollback, and reconciliation",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `planner-verification-and-handoff`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `planner-migration-rollout`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/planner-verification-and-handoff/SKILL.md",
+      "canonical_replacement": "agent-system/skills/planner-migration-rollout/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {
@@ -569,9 +569,9 @@
       "sha256": "07bc91e81ae1225978d4e70fd0fbd5a4a42058a210c6276bd9b9c14bfb21e596",
       "word_count": 264,
       "specific_behavioural_contribution": "tests contention while naming the observed topology boundary",
-      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `tester-adversarial-behaviour`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
+      "no_op_or_duplication": "Repeated role/context/tool/iterative-flow paragraph adds no file-specific behaviour. Its distinct rule is retained in `tester-concurrency-boundaries`; overlapping inputs, outputs, stops, and authority prose are consolidated there.",
       "decision": "merge",
-      "canonical_replacement": "agent-system/skills/tester-adversarial-behaviour/SKILL.md",
+      "canonical_replacement": "agent-system/skills/tester-concurrency-boundaries/SKILL.md",
       "repeated_role_boundary_boilerplate": true
     },
     {

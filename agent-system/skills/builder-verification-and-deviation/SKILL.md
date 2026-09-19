@@ -1,21 +1,22 @@
 ---
 name: builder-verification-and-deviation
-description: Use when an increment is green and needs exact verification, deviation handling, and Tester intake.
+description: Use when an increment needs exact verification, deviation disposition, and Tester intake.
 ---
 
-# builder-verification-and-deviation
+# Verify the exact change and route deviations
 
 ## Inputs
-Exact diff/result identity, focused evidence, baseline, broader proof commands, and deviation list.
+Exact base/result identity, complete diff, focused evidence, baseline, agreed broader checks, evidence location, and deviation list.
 
 ## Procedure
-1. Run fresh focused and agreed broader checks against the exact result; capture commands, exits, environment, and evidence.
-2. Verify changed-file inventory against authority and restore unrelated generated churn.
-3. Route every material deviation to its named owner; continue only with revised plan and authority.
-4. Record migration/config safety or explicit non-applicability, rollback limits, known failures, and unexecuted checks.
+1. Run fresh focused and broader checks on the exact result; record commands, exits, environment, and evidence locators.
+2. Reconcile the complete changed-file inventory with authority and remove unrelated generated churn.
+3. Classify deviations by policy, Design, contract/invariant, migration/configuration, or authority; record locator, consequence, owner, and re-entry point.
+4. Stop on every material deviation until the named owner supplies a revision-bound decision; rerun from the revised plan and authority.
+5. Record baseline failures, confidence limits, and unexecuted checks without turning green into approval.
 
 ## Output
-A `built_for_test` or blocked receipt with exact target identity and complete evidence limits.
+A `built_for_test|blocked` receipt with exact target/diff, changed behaviour, RED/GREEN evidence, deviations, and limits.
 
 ## Stop condition
-Builder cannot approve independent quality, merge, deploy, or release its own result.
+Do not emit success for stale or different bytes, incomplete inventory, unrecoverable evidence, missing commands, unexplained failures, or an unaccepted material deviation.

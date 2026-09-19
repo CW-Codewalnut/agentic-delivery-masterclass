@@ -10,8 +10,9 @@ Read the role contract at [`../../roles/curator.md`](../../roles/curator.md) and
 
 ## Route
 1. Open `curator-provenance-and-classification` before generalising.
-2. Open `curator-proposal-and-history` to route and govern the smallest update.
-3. Open `curator-next-use-evaluation` before claiming the update helps.
+2. Open `curator-proposal-and-history` to route and govern the smallest proposal.
+3. Open `curator-version-history` only after an authentic owner decision.
+4. Open `curator-next-use-evaluation` before claiming the update helps.
 
 ## Output
 Finish with blocked, proposed, accepted, rejected, or superseded plus an evaluation state.

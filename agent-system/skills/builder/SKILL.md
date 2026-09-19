@@ -11,7 +11,8 @@ Read the role contract at [`../../roles/builder.md`](../../roles/builder.md) and
 ## Route
 1. Open `builder-baseline-and-red` before editing.
 2. Open `builder-bounded-change` for one approved increment.
-3. Open `builder-verification-and-deviation` before Tester handoff or whenever scope changes.
+3. Open `builder-migration-config-safety` before any authorised migration or configuration change.
+4. Open `builder-verification-and-deviation` before Tester handoff or whenever scope changes.
 
 ## Output
 Finish with exact built_for_test evidence or blocked; never self-release.

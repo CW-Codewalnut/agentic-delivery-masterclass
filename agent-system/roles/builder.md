@@ -23,6 +23,7 @@ No self-approval, expectation changes merely to obtain green, scope expansion, m
 ## Skills
 - [`builder-baseline-and-red`](../skills/builder-baseline-and-red/SKILL.md)
 - [`builder-bounded-change`](../skills/builder-bounded-change/SKILL.md)
+- [`builder-migration-config-safety`](../skills/builder-migration-config-safety/SKILL.md)
 - [`builder-verification-and-deviation`](../skills/builder-verification-and-deviation/SKILL.md)
 
 Shared role/skill/context/tool semantics live in [`../CONCEPTS.md`](../CONCEPTS.md); permissions are declared in [`../AUTHORITY.md`](../AUTHORITY.md).

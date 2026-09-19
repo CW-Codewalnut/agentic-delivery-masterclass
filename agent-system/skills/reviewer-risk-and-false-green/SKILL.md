@@ -1,21 +1,24 @@
 ---
 name: reviewer-risk-and-false-green
-description: Use when review evidence must be challenged for security, consistency, lifecycle, and false-green gaps.
+description: Use when review must challenge security, consistency, lifecycle, disclosure, and passing evidence.
 ---
 
-# reviewer-risk-and-false-green
+# Audit risk and attack false greens
 
 ## Inputs
-Acceptance trace, diff, tests, negative-control evidence, topology, and risk boundaries.
+Pinned diff, acceptance trace, test source and receipts, fixtures, topology, negative controls, ownership/disclosure policy, and known gaps.
 
 ## Procedure
-1. Inspect authorisation, disclosure, state transitions, stale writes, idempotency, event/state consistency, and relevant failure recovery.
-2. Ask what implementation, payload, state, or topology defect could remain while the suite stays green.
-3. Check whether the negative control failed at the intended assertion and whether fresh GREEN used the restored exact target.
-4. Write findings with locator, consequence, remediation, owner path, and recheck condition.
+1. Inspect caller ownership, authorisation ordering, error disclosure, lifecycle cutoffs, stale writes, expected-version checks, and repeated-intent precedence.
+2. Inspect idempotency scope, fingerprint/replay equality, key misuse, and whether mutation, version, event, and record share the claimed consistency boundary.
+3. Compare synchronisation with actual processes, workers, stores, transactions, and failure modes.
+4. Read assertions, not names or summaries. Separate import/syntax/harness RED from a semantic negative control and require fresh restored GREEN on the same target.
+5. Apply deletion attacks: ask whether removing state, version, payload, record, forbidden-effect, or race assertions could leave the suite green.
+6. Reject stale, truncated, self-attested, fixture-derived, or package-only proof; preserve missing dimensions as unassessed rather than defects.
+7. Write each finding with locator, consequence, remediation, owner path, and recheck condition.
 
 ## Output
-A risk finding set and unsupported-claim list, with hard evidence separated from judgment calls.
+Security/consistency findings, negative-control assessment, deletion-attack list, unsupported claims, and exact supported-boundary statement.
 
 ## Stop condition
-Do not convert missing proof into an implementation defect; label it unassessed or blocked as appropriate.
+Stop on unanswered critical authorisation, integrity, or disclosure risk, wrong-cause RED, absent restoration/fresh GREEN, or evidence that cannot be bound to exact bytes.
