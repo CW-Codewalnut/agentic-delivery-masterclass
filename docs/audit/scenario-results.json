@@ -1,0 +1,182 @@
+{
+  "classification": "deterministic policy simulation; not live model evaluation",
+  "actual_agent_execution": false,
+  "cross_model_review": false,
+  "summary": {
+    "cases": 14,
+    "passed": 14,
+    "failed": 0
+  },
+  "results": [
+    {
+      "id": "capture-positive",
+      "role": "capture-refine",
+      "expected": {
+        "status": "draft_for_engineer_completeness_review"
+      },
+      "actual": {
+        "status": "draft_for_engineer_completeness_review"
+      },
+      "passed": true
+    },
+    {
+      "id": "capture-negative",
+      "role": "capture-refine",
+      "expected": {
+        "status": "blocked",
+        "reason": "missing_request_identity"
+      },
+      "actual": {
+        "status": "blocked",
+        "reason": "missing_request_identity"
+      },
+      "passed": true
+    },
+    {
+      "id": "design-positive",
+      "role": "design",
+      "expected": {
+        "status": "ready",
+        "mode": "specification_only"
+      },
+      "actual": {
+        "status": "ready",
+        "mode": "specification_only"
+      },
+      "passed": true
+    },
+    {
+      "id": "design-negative",
+      "role": "design",
+      "expected": {
+        "status": "blocked",
+        "reason": "missing_editable_authority"
+      },
+      "actual": {
+        "status": "blocked",
+        "reason": "missing_editable_authority"
+      },
+      "passed": true
+    },
+    {
+      "id": "planner-positive",
+      "role": "planner",
+      "expected": {
+        "status": "ready_for_build"
+      },
+      "actual": {
+        "status": "ready_for_build"
+      },
+      "passed": true
+    },
+    {
+      "id": "planner-negative",
+      "role": "planner",
+      "expected": {
+        "status": "blocked",
+        "reason": "return_business_ambiguity"
+      },
+      "actual": {
+        "status": "blocked",
+        "reason": "return_business_ambiguity"
+      },
+      "passed": true
+    },
+    {
+      "id": "builder-positive",
+      "role": "builder",
+      "expected": {
+        "status": "built_for_test"
+      },
+      "actual": {
+        "status": "built_for_test"
+      },
+      "passed": true
+    },
+    {
+      "id": "builder-negative",
+      "role": "builder",
+      "expected": {
+        "status": "blocked",
+        "reason": "missing_change_authority"
+      },
+      "actual": {
+        "status": "blocked",
+        "reason": "missing_change_authority"
+      },
+      "passed": true
+    },
+    {
+      "id": "tester-positive",
+      "role": "tester",
+      "expected": {
+        "status": "tested"
+      },
+      "actual": {
+        "status": "tested"
+      },
+      "passed": true
+    },
+    {
+      "id": "tester-negative",
+      "role": "tester",
+      "expected": {
+        "status": "blocked",
+        "reason": "return_unknown_expectation"
+      },
+      "actual": {
+        "status": "blocked",
+        "reason": "return_unknown_expectation"
+      },
+      "passed": true
+    },
+    {
+      "id": "reviewer-positive",
+      "role": "reviewer",
+      "expected": {
+        "status": "merge_candidate"
+      },
+      "actual": {
+        "status": "merge_candidate"
+      },
+      "passed": true
+    },
+    {
+      "id": "reviewer-negative",
+      "role": "reviewer",
+      "expected": {
+        "status": "blocked",
+        "reason": "missing_target_identity"
+      },
+      "actual": {
+        "status": "blocked",
+        "reason": "missing_target_identity"
+      },
+      "passed": true
+    },
+    {
+      "id": "curator-positive",
+      "role": "curator",
+      "expected": {
+        "status": "proposed"
+      },
+      "actual": {
+        "status": "proposed"
+      },
+      "passed": true
+    },
+    {
+      "id": "curator-negative",
+      "role": "curator",
+      "expected": {
+        "status": "blocked",
+        "reason": "unsafe_provenance"
+      },
+      "actual": {
+        "status": "blocked",
+        "reason": "unsafe_provenance"
+      },
+      "passed": true
+    }
+  ]
+}
