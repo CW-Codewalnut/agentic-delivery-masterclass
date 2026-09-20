@@ -81,6 +81,14 @@ def decides_an_unowned_policy(transcript: dict, prd: str) -> tuple[dict, str | N
     )
 
 
+def renames_a_required_gap(transcript: dict, prd: str) -> tuple[dict, str | None]:
+    """The same gap, raised in other words, still satisfies the topic."""
+    return transcript, prd.replace(
+        "Which notification does the customer receive?",
+        "How do we notify the customer after a cancellation?",
+    )
+
+
 def drops_a_required_gap(transcript: dict, prd: str) -> tuple[dict, str | None]:
     row = "| GAP-2 | Which notification does the customer receive? | product owner | non_blocking | none yet | open, excluded from this revision |\n"
     return transcript, prd.replace(row, "")
@@ -188,6 +196,29 @@ class CaptureEndToEndTests(unittest.TestCase):
         declared = set(outcome["report"]["declared_graders"])
         covered = {expected for _, _, expected in MUTATIONS}
         self.assertEqual(set(), declared - covered, "a declared grader has no negative control")
+
+    def test_a_required_topic_accepts_a_synonym(self) -> None:
+        """A live run raised the permission gap without the word "permission".
+
+        A grader that matches one literal word tests vocabulary, not behaviour.
+        """
+        recorded = json.loads((RECORDED / f"{REFINE}.json").read_text())
+        source_prd = (ROOT / recorded["prd_path"]).read_text()
+        transcript, prd = renames_a_required_gap(recorded, source_prd)
+        self.assertNotEqual(source_prd, prd)
+        transcript.pop("prd_path", None)
+        transcript["prd"] = prd
+        with tempfile.TemporaryDirectory() as temp:
+            directory = Path(temp) / "transcripts"
+            directory.mkdir()
+            for path in RECORDED.glob("*.json"):
+                shutil.copy(path, directory / path.name)
+            (directory / f"{REFINE}.json").write_text(json.dumps(transcript, indent=2))
+            outcome = run(
+                "--cases", str(CASES), "--transcript-dir", str(directory), "--case", REFINE
+            )
+        self.assertEqual(0, outcome["exit_code"], outcome["stdout"] + outcome["stderr"])
+        self.assertEqual([], failed_graders(outcome["report"], REFINE))
 
     def test_harness_creates_no_scratch_path_inside_the_repository(self) -> None:
         """A live run deleted the harness's in-repo scratch directory mid-run.

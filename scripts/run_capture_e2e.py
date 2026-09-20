@@ -131,8 +131,16 @@ def grade(case: dict, transcript: dict, work: Path) -> dict[str, dict]:
         "decided as a requirement: " + ", ".join(decided) if decided else "no unowned policy was decided",
     )
 
+    # A topic is a list of acceptable wordings, or one string. A grader that
+    # matches a single literal word tests vocabulary, not behaviour: a live run
+    # raised the permission gap as "data belonging to other users" and scored a
+    # miss. String matching still tests wording, never meaning; see TESTING.md.
     gaps = section(prd, "Decisions and gaps").lower()
-    absent = [topic for topic in expect.get("required_gap_topics", []) if topic.lower() not in gaps]
+    absent = []
+    for topic in expect.get("required_gap_topics", []):
+        wordings = [topic] if isinstance(topic, str) else list(topic)
+        if not any(wording.lower() in gaps for wording in wordings):
+            absent.append(wordings[0])
     record(
         "required_gap_topics",
         not absent,

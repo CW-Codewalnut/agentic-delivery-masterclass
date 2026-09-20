@@ -16,9 +16,23 @@
       "permission"
     ],
     "required_gap_topics": [
-      "retention",
-      "permission",
-      "identity"
+      [
+        "retention",
+        "retain",
+        "how long"
+      ],
+      [
+        "permission",
+        "who may",
+        "belonging to other",
+        "entitled",
+        "allowed to export"
+      ],
+      [
+        "identity",
+        "ticket",
+        "stable reference"
+      ]
     ],
     "design_state_in": [
       "absent",

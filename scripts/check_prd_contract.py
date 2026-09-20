@@ -22,6 +22,13 @@ PRIVATE_MARKER = re.compile(
     r"|in-?memory (?:map|dict)|internal (?:map|dict|field|counter))\b",
     re.IGNORECASE,
 )
+# A live run wrote "*unassigned*" on every gap and the checker passed them all.
+# A placeholder is not an owner, and accepting one is a false green.
+PLACEHOLDER_OWNER = re.compile(
+    r"^(?:unassigned|unowned|tbd|to_?be_?(?:confirmed|decided|named)|none|n/?a"
+    r"|unknown|not_?(?:named|assigned|set|yet)|nobody|open|pending|\?+)$",
+    re.IGNORECASE,
+)
 LEAK_TERMS = (
     "redis", "postgres", "postgresql", "mysql", "mongodb", "dynamodb", "cassandra",
     "kafka", "rabbitmq", "sqs", "s3 bucket", "lambda", "kubernetes", "docker",
@@ -264,8 +271,9 @@ def check_content(text: str, blocks: dict[str, list[str]], report: Report) -> No
     for row in gap_rows:
         gid = cell(row, gap_header, "ID")
         effect = token(cell(row, gap_header, "Blocking effect"))
-        if not cell(row, gap_header, "Owner"):
-            report.add("unowned_gap", gid, "every gap needs a named owner")
+        owner = cell(row, gap_header, "Owner").strip(" *_`")
+        if not owner or PLACEHOLDER_OWNER.match(owner.replace(" ", "_")):
+            report.add("unowned_gap", gid, f"owner {owner!r} names nobody who can decide")
         if effect not in BLOCKING_EFFECTS:
             report.add(
                 "invalid_blocking_effect", gid, f"{effect!r} is not one of {BLOCKING_EFFECTS}"

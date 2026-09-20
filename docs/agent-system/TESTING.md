@@ -64,4 +64,6 @@ A live run is not deterministic. Two runs of one model can score differently, so
 
 [`scripts/run_scenario_checks.py`](../../scripts/run_scenario_checks.py) simulates the gate decisions in Python. It proves the simulation, not the agent, and it says so in its own output. Level 2 is the honest agent test.
 
+Every Level 2 grader that reads text matches wording, never meaning. A live run raised the permission gap as "data belonging to other users" and scored a miss, because the grader looked for the word "permission". A required topic is now a list of acceptable wordings, which widens the match but does not change its nature. An agent that raises the right gap in wording nobody listed still scores a miss, and an agent that uses the word without raising the gap still scores a pass. Semantic grading needs a judge, and this harness deliberately has none. Read a topic grader as a vocabulary proxy, not as proof.
+
 Level 2 grades artefacts against stated rules. A pass means the PRD satisfied the contract and the agent stayed inside its authority. It does not prove the wording is good, the Product decisions are right, or the behaviour is worth building. Those stay human decisions on an exact revision.

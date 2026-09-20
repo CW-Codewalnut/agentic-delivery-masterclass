@@ -137,6 +137,12 @@ MUTATIONS = (
         "invalid_blocking_effect",
     ),
     (
+        "gap_owner_is_a_placeholder",
+        "| GAP-1 | Who executes the refund after a cancellation? | product owner | non_blocking | none yet | open, excluded from this revision |",
+        "| GAP-1 | Who executes the refund after a cancellation? | *unassigned* | non_blocking | none yet | open, excluded from this revision |",
+        "unowned_gap",
+    ),
+    (
         "blocking_gap_left_in_a_reviewable_draft",
         "| GAP-1 | Who executes the refund after a cancellation? | product owner | non_blocking | none yet | open, excluded from this revision |",
         "| GAP-1 | Who executes the refund after a cancellation? | product owner | blocking | none yet | open, excluded from this revision |",

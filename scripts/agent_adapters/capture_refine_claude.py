@@ -107,7 +107,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", required=True, help="model id or alias passed to claude -p")
     parser.add_argument("--timeout", type=int, default=600)
-    parser.add_argument("--save-raw", type=Path, help="write the unparsed model reply here")
+    parser.add_argument(
+        "--save-raw-dir",
+        type=Path,
+        help="directory for each case's unparsed model reply, named <case-id>.raw.txt",
+    )
     args = parser.parse_args()
     case = json.load(sys.stdin)
 
@@ -129,9 +133,9 @@ def main() -> None:
         ["claude", "-p", "--model", args.model],
         input=request, cwd=ROOT, capture_output=True, text=True, timeout=args.timeout,
     )
-    if args.save_raw:
-        args.save_raw.parent.mkdir(parents=True, exist_ok=True)
-        args.save_raw.write_text(result.stdout)
+    if args.save_raw_dir:
+        args.save_raw_dir.mkdir(parents=True, exist_ok=True)
+        (args.save_raw_dir / f"{case['id']}.raw.txt").write_text(result.stdout)
     if result.returncode:
         raise SystemExit(f"{case['id']}: claude exited {result.returncode}: {result.stderr[:800]}")
 
