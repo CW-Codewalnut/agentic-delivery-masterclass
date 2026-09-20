@@ -1,0 +1,33 @@
+{
+  "id": "refine-cancellation-window",
+  "agent": "capture-refine",
+  "request": "Let people cancel orders if it is not too late.",
+  "supplied_sources": [
+    "SHOWCASE-OC-1 synthetic intake",
+    "domain/order-cancellation.md",
+    "tests/test_order_cancellation.py"
+  ],
+  "source_paths": [
+    "worked-example/00-intake.md",
+    "worked-example/01-decisions.md",
+    "domain/order-cancellation.md",
+    "tests/test_order_cancellation.py"
+  ],
+  "named_policy_owners": [
+    "fictional Order Experience product owner"
+  ],
+  "expect": {
+    "prd_status": "draft_for_engineer_completeness_review",
+    "prd_contract": "pass",
+    "min_questions": 4,
+    "design_state_in": [
+      "not_required"
+    ],
+    "forbidden_claims": [
+      "product has approved",
+      "ready to build",
+      "safe to release"
+    ],
+    "first_skill": "capture-intake-and-gaps"
+  }
+}

@@ -1,0 +1,6 @@
+FAIL: test_agent_command_path_is_wired_and_labelled (tests.test_capture_e2e.CaptureEndToEndTests.test_agent_command_path_is_wired_and_labelled)
+FAIL: test_recorded_run_records_an_honest_classification (tests.test_capture_e2e.CaptureEndToEndTests.test_recorded_run_records_an_honest_classification)
+FAIL: test_recorded_transcripts_pass_every_grader (tests.test_capture_e2e.CaptureEndToEndTests.test_recorded_transcripts_pass_every_grader)
+Ran 7 tests in 1.672s
+FAILED (failures=3)
+cause: declared_skills grader rejects capture-grill-and-decide and capture-acceptance-contract; agents/manifest.json does not own them yet

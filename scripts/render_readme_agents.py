@@ -96,7 +96,13 @@ def generated_section() -> str:
     return "\n".join(blocks).rstrip()
 
 
+def inventory() -> tuple[int, int]:
+    manifest = json.loads(MANIFEST.read_text())
+    return len(manifest["agents"]), sum(len(agent["skills"]) for agent in manifest["agents"])
+
+
 def update_readme(check: bool) -> None:
+    roles, skills = inventory()
     current = README.read_text()
     if current.count(START) != 1 or current.count(END) != 1:
         raise SystemExit("README must contain one generated catalogue marker pair")
@@ -108,10 +114,10 @@ def update_readme(check: bool) -> None:
             raise SystemExit(
                 "README agent catalogue is stale; run python3 scripts/render_readme_agents.py"
             )
-        print("README agent catalogue matches 7 roles and 25 skills")
+        print(f"README agent catalogue matches {roles} roles and {skills} skills")
         return
     README.write_text(before + START + expected + END + after)
-    print("rendered README agent catalogue from 7 roles and 25 skills")
+    print(f"rendered README agent catalogue from {roles} roles and {skills} skills")
 
 
 def main() -> None:

@@ -1,0 +1,12 @@
+GREEN after the two new skills and the updated template.
+test_agent_first_system      OK
+test_content_contract        OK
+test_prd_contract            OK
+test_capture_e2e             OK
+test_order_cancellation      OK
+
+validator:
+{"agents": 7, "errors": 0, "legacy_mappings": 51, "readme_source_parity": true, "roles": 7, "scenario_cases": 14, "skills": 27, "templates": 7}
+prd contract on the conforming fixture:
+{"findings": 0}
+exit=0

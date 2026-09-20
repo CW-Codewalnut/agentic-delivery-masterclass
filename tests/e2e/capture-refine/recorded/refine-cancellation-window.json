@@ -1,0 +1,20 @@
+{
+  "case": "refine-cancellation-window",
+  "agent": "capture-refine",
+  "execution": "recorded transcript; not a live model run",
+  "skills_opened": [
+    "capture-intake-and-gaps",
+    "capture-grill-and-decide",
+    "capture-engineer-interview",
+    "capture-acceptance-contract",
+    "capture-prd-handoff"
+  ],
+  "questions": [
+    "Which order states stay cancellable?",
+    "Who may cancel an order?",
+    "What does a repeated cancellation request return?",
+    "What happens when two valid attempts arrive at the same time?",
+    "Does a cancellation trigger a refund in this revision?"
+  ],
+  "prd_path": "tests/fixtures/prd/conforming.md"
+}

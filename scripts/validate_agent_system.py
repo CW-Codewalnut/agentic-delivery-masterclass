@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import subprocess
@@ -59,6 +60,7 @@ def main() -> None:
     manifest = json.loads(manifest_path.read_text())
     agents = manifest["agents"]
     ids = {agent["id"] for agent in agents}
+    agents_by_id = {agent["id"]: agent for agent in agents}
     if len(agents) != 7 or len(ids) != 7:
         errors.append("manifest must declare seven unique agents")
 
@@ -74,8 +76,8 @@ def main() -> None:
         errors.append(f"skill membership/orphan mismatch: declared={len(declared_skills)} actual={len(actual_skills)}")
     if declared_templates != actual_templates:
         errors.append(f"template membership mismatch: declared={len(declared_templates)} actual={len(actual_templates)}")
-    if (len(actual_roles), len(actual_skills), len(actual_templates)) != (7, 25, 7):
-        errors.append("canonical inventory must be 7 roles, 25 skills, and 7 templates")
+    if (len(actual_roles), len(actual_skills), len(actual_templates)) != (7, 27, 7):
+        errors.append("canonical inventory must be 7 roles, 27 skills, and 7 templates")
     if (root / "agent-system").exists():
         errors.append("obsolete agent-system canonical tree still exists")
     if list((root / "agents").rglob("workflow.md")) or list((root / "agents").rglob("WORKFLOW.md")):
@@ -122,6 +124,7 @@ def main() -> None:
         *sorted((root / "docs/examples").glob("*.md")),
         *sorted((root / "docs/audit").glob("*.md")),
         *sorted((root / "docs/research").glob("*.md")),
+        *sorted((root / "shared").glob("*.md")),
     ]
     for path in docs:
         text = path.read_text()
@@ -138,6 +141,54 @@ def main() -> None:
                 continue
             if not (path.parent / clean).resolve().exists():
                 errors.append(f"{relative}: broken link {target}")
+
+    # Shared skills tier. A vendored file is a verbatim third-party copy, so it is
+    # checked for provenance and integrity and never for the house shape: editing
+    # one to fit this repository's style would end the claim that it is verbatim.
+    shared_skills = manifest.get("shared_skills", [])
+    actual_shared = {
+        str(path.relative_to(root)) for path in (root / "shared/skills").glob("*/SKILL.md")
+    } if (root / "shared/skills").is_dir() else set()
+    declared_shared = {entry["path"] for entry in shared_skills}
+    if declared_shared != actual_shared:
+        errors.append(
+            f"shared skill membership/orphan mismatch: declared={len(declared_shared)} "
+            f"actual={len(actual_shared)}"
+        )
+    shared_names = [entry["name"] for entry in shared_skills]
+    if len(shared_names) != len(set(shared_names)):
+        errors.append("shared skill names must be unique")
+    for entry in shared_skills:
+        name = entry["name"]
+        if not entry["path"].startswith("shared/skills/") or Path(entry["path"]).parent.name != name:
+            errors.append(f"shared/{name}: path must be shared/skills/{name}/SKILL.md")
+        if len(entry["agents"]) < 2:
+            errors.append(f"shared/{name}: fewer than two agents; it belongs to one agent's folder")
+        for agent_id in entry["agents"]:
+            if agent_id not in ids:
+                errors.append(f"shared/{name}: unknown agent {agent_id}")
+                continue
+            role_text = (root / agents_by_id[agent_id]["role"]).read_text()
+            if f"shared/skills/{name}/SKILL.md" not in role_text:
+                errors.append(f"{agents_by_id[agent_id]['role']}: does not orchestrate shared {name}")
+        if entry.get("verbatim"):
+            provenance = entry.get("provenance", {})
+            missing = [
+                key for key in ("source", "repository", "commit", "licence", "licence_file", "sha256")
+                if not provenance.get(key)
+            ]
+            if missing:
+                errors.append(f"shared/{name}: provenance missing {', '.join(missing)}")
+                continue
+            if not (root / provenance["licence_file"]).is_file():
+                errors.append(f"shared/{name}: licence file {provenance['licence_file']} is absent")
+            digest = hashlib.sha256((root / entry["path"]).read_bytes()).hexdigest()
+            if digest != provenance["sha256"]:
+                errors.append(
+                    f"shared/{name}: vendored file changed; re-pin upstream instead of editing it"
+                )
+    if shared_skills and not (root / "shared/ATTRIBUTION.md").is_file():
+        errors.append("shared/ATTRIBUTION.md is required when the tier declares a shared skill")
 
     audit = json.loads((root / "docs/audit/skill-inventory.json").read_text())
     counts = audit["counts"]
@@ -173,6 +224,7 @@ def main() -> None:
         "roles": len(actual_roles),
         "skills": len(actual_skills),
         "templates": len(actual_templates),
+        "shared_skills": len(shared_skills),
         "legacy_mappings": len(mapping),
         "scenario_cases": len(cases),
         "readme_source_parity": readme_check.returncode == 0,

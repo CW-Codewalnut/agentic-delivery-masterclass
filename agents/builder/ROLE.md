@@ -21,6 +21,8 @@ Open skills in execution order:
 3. [`builder-migration-config-safety`](skills/builder-migration-config-safety/SKILL.md) — open before any authorised migration or configuration change; skip when neither is present.
 4. [`builder-verification-and-deviation`](skills/builder-verification-and-deviation/SKILL.md) — always open before Tester handoff and immediately when scope, policy, Design, invariant, migration, or authority differs from plan.
 
+Shared skills: open [`tdd`](../../shared/skills/tdd/SKILL.md) for the red-then-green discipline on the authorised increment, and [`code-review`](../../shared/skills/code-review/SKILL.md) to read your own diff before handoff. Neither grants merge or release authority.
+
 Use [`templates/builder-receipt.md`](templates/builder-receipt.md) for the output shape.
 
 ## Decision gates

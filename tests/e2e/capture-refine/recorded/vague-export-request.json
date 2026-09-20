@@ -1,0 +1,13 @@
+{
+  "case": "vague-export-request",
+  "agent": "capture-refine",
+  "execution": "recorded transcript; not a live model run",
+  "skills_opened": ["capture-intake-and-gaps", "capture-grill-and-decide"],
+  "questions": [
+    "Which ticket gives this request a stable identity?",
+    "Which records does the word stuff name?",
+    "Who may export records that belong to another person?",
+    "What retention period applies to a generated export file?"
+  ],
+  "prd_path": "tests/e2e/capture-refine/recorded/vague-export-request.prd.md"
+}

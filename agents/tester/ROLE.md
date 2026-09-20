@@ -21,6 +21,8 @@ Open skills according to the claims under test:
 3. [`tester-concurrency-boundaries`](skills/tester-concurrency-boundaries/SKILL.md) — open only when a claim or risk depends on simultaneous attempts, ordering, uniqueness, process count, store, or distributed topology. Skip when concurrency is irrelevant.
 4. [`tester-defect-and-handoff`](skills/tester-defect-and-handoff/SKILL.md) — open for every failure, rerun, coverage classification, and Reviewer handoff.
 
+Shared skill: open [`tdd`](../../shared/skills/tdd/SKILL.md) when judging whether a check observes public behaviour and whether its failure is meaningful. It never supplies the approved expectation.
+
 Use [`templates/tester-evidence.md`](templates/tester-evidence.md) for the output shape.
 
 ## Decision gates

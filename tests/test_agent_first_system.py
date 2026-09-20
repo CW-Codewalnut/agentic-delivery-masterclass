@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_AGENTS = {
-    "capture-refine": 3,
+    "capture-refine": 5,
     "design": 3,
     "planner": 4,
     "builder": 4,
@@ -37,7 +37,7 @@ class AgentFirstSystemTests(unittest.TestCase):
             self.assertTrue((ROOT / agent["role"]).is_file())
             self.assertTrue((ROOT / agent["template"]).is_file())
             self.assertTrue(all((ROOT / path).is_file() for path in agent["skills"]))
-        self.assertEqual(25, sum(len(agent["skills"]) for agent in self.agents.values()))
+        self.assertEqual(27, sum(len(agent["skills"]) for agent in self.agents.values()))
 
     def test_roles_orchestrate_every_owned_skill_and_no_router_or_workflow_exists(self) -> None:
         for agent in self.agents.values():
@@ -67,7 +67,7 @@ class AgentFirstSystemTests(unittest.TestCase):
         self.assertEqual(0, result.returncode, result.stderr or result.stdout)
         readme = (ROOT / "README.md").read_text()
         self.assertEqual(7, readme.count("Actual <code>ROLE.md</code> text"))
-        self.assertEqual(25, readme.count("/SKILL.md</code> text"))
+        self.assertEqual(27, readme.count("/SKILL.md</code> text"))
 
     def test_selected_prompt_contains_role_owned_skill_and_template_only(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
