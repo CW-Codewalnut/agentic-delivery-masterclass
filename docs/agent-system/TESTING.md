@@ -45,6 +45,19 @@ python3 scripts/run_capture_e2e.py --agent-command "<command that runs the agent
 
 An `--agent-command` receives the case JSON on stdin and must return the transcript JSON on stdout. The results file records which source produced the transcripts, so a recorded run is never reported as a live one. [`tests/e2e/capture-refine/stub_agent.py`](../../tests/e2e/capture-refine/stub_agent.py) replays recorded transcripts, which keeps the command path tested in a suite that makes no model call. It is a replay stub, not a model.
 
+### Running it against a real model
+
+[`scripts/agent_adapters/capture_refine_claude.py`](../../scripts/agent_adapters/capture_refine_claude.py) is a live adapter. It renders the agent's own prompt with `render_agent_prompt.py --all-skills`, gives the model only the evidence the case names in `source_paths`, and calls `claude -p --model <model>`.
+
+```
+python3 scripts/run_capture_e2e.py \
+  --agent-command "python3 scripts/agent_adapters/capture_refine_claude.py --model haiku"
+```
+
+The adapter does transport only. It never repairs the PRD, never rewrites a question, and never supplies a section the model left out; a missing or empty section fails closed. A repairing adapter would make the graders test the adapter instead of the agent. [`tests/test_capture_agent_adapter.py`](../../tests/test_capture_agent_adapter.py) proves that with seven cases and no model call, including one that asserts a malformed PRD passes through unrepaired.
+
+A live run is not deterministic. Two runs of one model can score differently, so a single pass is evidence about one run, never about the model.
+
 [`tests/test_capture_e2e.py`](../../tests/test_capture_e2e.py) proves the graders the same way Level 1 proves the checker: eleven seeded transcript defects, one per grader, plus a coverage test that fails when a grader has no negative control.
 
 ## What these tests do not prove
