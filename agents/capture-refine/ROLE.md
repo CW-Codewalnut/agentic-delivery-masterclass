@@ -22,6 +22,8 @@ Open only the skills needed for the case, in this order when their trigger appli
 4. [`capture-acceptance-contract`](skills/capture-acceptance-contract/SKILL.md) — open once behaviour is agreed, to turn it into paired criteria, non-functional thresholds, an outcome contract, and an expected-failure list. Skip while a blocking gap stays open.
 5. [`capture-prd-handoff`](skills/capture-prd-handoff/SKILL.md) — open once the acceptance contract is complete enough to bind an exact revision and an exact handoff. Skip while blocking gaps lack owners.
 
+Shared skill: open [`tdd`](../../shared/skills/tdd/SKILL.md) when deriving the expected-failure list, to keep each criterion observing public behaviour and each expected failure meaningful. It informs the shape of a check; it never decides Product behaviour.
+
 Use [`templates/capture-prd.md`](templates/capture-prd.md) for the output shape.
 
 ## Decision gates

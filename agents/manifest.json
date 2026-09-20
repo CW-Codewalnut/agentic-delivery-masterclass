@@ -15,6 +15,43 @@
     "docs/agent-system/CONCEPTS.md",
     "docs/agent-system/AUTHORITY.md"
   ],
+  "shared_skills": [
+    {
+      "name": "tdd",
+      "path": "shared/skills/tdd/SKILL.md",
+      "agents": [
+        "capture-refine",
+        "builder",
+        "tester"
+      ],
+      "verbatim": true,
+      "provenance": {
+        "source": "https://github.com/mattpocock/skills/blob/c55ee46073ed923f86ce59a5eb3b6d895095d1b7/skills/engineering/tdd/SKILL.md",
+        "repository": "mattpocock/skills",
+        "commit": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
+        "licence": "MIT",
+        "licence_file": "shared/LICENSE-mattpocock-skills",
+        "sha256": "cb01f66bebfaa25fa1f88e6b7e769cd9fd9f35b1120b8563749820738814c927"
+      }
+    },
+    {
+      "name": "code-review",
+      "path": "shared/skills/code-review/SKILL.md",
+      "agents": [
+        "builder",
+        "reviewer"
+      ],
+      "verbatim": true,
+      "provenance": {
+        "source": "https://github.com/mattpocock/skills/blob/c55ee46073ed923f86ce59a5eb3b6d895095d1b7/skills/engineering/code-review/SKILL.md",
+        "repository": "mattpocock/skills",
+        "commit": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
+        "licence": "MIT",
+        "licence_file": "shared/LICENSE-mattpocock-skills",
+        "sha256": "47f4e52c21694def9c7c11cbfbf891ca35eac7a93e395797515be3c8a409ae50"
+      }
+    }
+  ],
   "example": "docs/examples/request-to-handoffs.md",
   "agents": [
     {

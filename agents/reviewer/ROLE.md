@@ -20,6 +20,8 @@ Use all three review skills in dependency order for a decision:
 2. [`reviewer-risk-and-false-green`](skills/reviewer-risk-and-false-green/SKILL.md) — challenge sufficiency with deletion attacks and inspect authorisation, lifecycle, consistency, security, disclosure, and topology risks.
 3. [`reviewer-decision-and-recheck`](skills/reviewer-decision-and-recheck/SKILL.md) — issue `changes_requested`, `merge_candidate`, or `blocked`, separate release confidence, and define invalidation/recheck rules.
 
+Shared skill: open [`code-review`](../../shared/skills/code-review/SKILL.md) to keep spec findings apart from implementation and standards findings. It never grants merge or release authority.
+
 Use [`templates/reviewer-decision.md`](templates/reviewer-decision.md) for the output shape.
 
 ## Decision gates

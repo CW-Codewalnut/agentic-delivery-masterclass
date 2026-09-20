@@ -25,6 +25,12 @@ def main() -> None:
         action="store_true",
         help="include every skill owned by this agent",
     )
+    parser.add_argument(
+        "--shared-skill",
+        action="append",
+        default=[],
+        help="shared skill name to include; only one this agent is declared to use",
+    )
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
 
@@ -47,12 +53,48 @@ def main() -> None:
         )
     selected = list(agent["skills"]) if args.all_skills else [available[name] for name in args.skill]
 
-    paths = [*manifest["shared"], agent["role"], *selected, agent["template"]]
+    # A shared skill loads only for an agent the manifest declares uses it.
+    shared_by_name = {entry["name"]: entry for entry in manifest.get("shared_skills", [])}
+    unknown_shared = sorted(set(args.shared_skill) - set(shared_by_name))
+    if unknown_shared:
+        raise SystemExit(
+            f"unknown shared skills: {', '.join(unknown_shared)}; "
+            f"choose from: {', '.join(shared_by_name)}"
+        )
+    not_permitted = sorted(
+        name for name in args.shared_skill if args.agent not in shared_by_name[name]["agents"]
+    )
+    if not_permitted:
+        raise SystemExit(
+            f"shared skills not declared for {args.agent}: {', '.join(not_permitted)}"
+        )
+    shared_selected = [shared_by_name[name] for name in args.shared_skill]
+
+    paths = [
+        *manifest["shared"],
+        agent["role"],
+        *selected,
+        *(entry["path"] for entry in shared_selected),
+        agent["template"],
+    ]
     selection = ", ".join(Path(path).parent.name for path in selected)
+    shared_lines = ""
+    for entry in shared_selected:
+        provenance = entry.get("provenance", {})
+        if entry.get("verbatim"):
+            shared_lines += (
+                f"- Included shared skill: `{entry['name']}` — verbatim copy from "
+                f"{provenance.get('repository')} at {provenance.get('commit', '')[:8]}, "
+                f"{provenance.get('licence')}; notice retained in "
+                f"`{provenance.get('licence_file')}`\n"
+            )
+        else:
+            shared_lines += f"- Included shared skill: `{entry['name']}`\n"
     preamble = (
         "# Portable agent prompt\n\n"
         f"- Agent: `{args.agent}`\n"
-        f"- Included owned skills: {selection}\n\n"
+        f"- Included owned skills: {selection}\n"
+        f"{shared_lines}\n"
         "ROLE.md owns routing and names other possible skills. Only the explicitly selected skills are loaded in this bundle. "
         "Render again with the applicable `--skill` values if the case changes.\n"
     )
@@ -71,7 +113,8 @@ def main() -> None:
         args.output.write_text(rendered)
         print(
             f"rendered {args.agent}: {args.output} "
-            f"({len(selected)} owned skills, {len(rendered.encode())} bytes)"
+            f"({len(selected)} owned skills, {len(shared_selected)} shared, "
+            f"{len(rendered.encode())} bytes)"
         )
     else:
         print(rendered, end="")

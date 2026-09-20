@@ -24,6 +24,26 @@ flowchart LR
 
 This is conditional and iterative, not a mandatory seven-stage release pipeline. Design can be skipped; Tester and Reviewer stay independent; human owners retain Product, Design, change, merge, release, and adoption authority.
 
+## Shared skills
+
+Most skills belong to exactly one agent. Two are opened by several, so they live in [`shared/skills/`](shared/skills/) and `agents/manifest.json` records which agents may open each one. A skill only one agent opens belongs in that agent's folder, and the validator fails a shared skill that declares fewer than two agents.
+
+| Shared skill | Opened by | Source |
+| --- | --- | --- |
+| [`tdd`](shared/skills/tdd/SKILL.md) | Capture & Refine, Builder, Tester | verbatim copy from `mattpocock/skills`, MIT |
+| [`code-review`](shared/skills/code-review/SKILL.md) | Builder, Reviewer | verbatim copy from `mattpocock/skills`, MIT |
+
+Both are unchanged upstream files at a pinned commit. They keep their own shape rather than this repository's, because editing a copy to fit a house style would end the claim that it is verbatim. The manifest records each file's source, commit, and SHA-256; the validator and the test suite recompute the hash, so a hand edit fails. [`shared/ATTRIBUTION.md`](shared/ATTRIBUTION.md) holds the provenance, the retained MIT notice, and the reason four other upstream files were left out.
+
+Render a bundle with a shared skill by naming it explicitly:
+
+```bash
+python3 scripts/render_agent_prompt.py tester \
+  --skill tester-adversarial-behaviour --shared-skill tdd
+```
+
+The renderer refuses a shared skill the agent is not declared to use.
+
 ## How the system tests itself
 
 Two levels test the Capture & Refine agent, and [`docs/agent-system/TESTING.md`](docs/agent-system/TESTING.md) describes both.
@@ -85,6 +105,8 @@ Open only the skills needed for the case, in this order when their trigger appli
 3. [`capture-engineer-interview`](skills/capture-engineer-interview/SKILL.md) — open only when current-system behaviour or engineering-observable completeness remains unknown; skip when the evidence already answers those questions. Engineering evidence cannot decide Product policy.
 4. [`capture-acceptance-contract`](skills/capture-acceptance-contract/SKILL.md) — open once behaviour is agreed, to turn it into paired criteria, non-functional thresholds, an outcome contract, and an expected-failure list. Skip while a blocking gap stays open.
 5. [`capture-prd-handoff`](skills/capture-prd-handoff/SKILL.md) — open once the acceptance contract is complete enough to bind an exact revision and an exact handoff. Skip while blocking gaps lack owners.
+
+Shared skill: open [`tdd`](../../shared/skills/tdd/SKILL.md) when deriving the expected-failure list, to keep each criterion observing public behaviour and each expected failure meaningful. It informs the shape of a check; it never decides Product behaviour.
 
 Use [`templates/capture-prd.md`](templates/capture-prd.md) for the output shape.
 
@@ -745,6 +767,8 @@ Open skills in execution order:
 3. [`builder-migration-config-safety`](skills/builder-migration-config-safety/SKILL.md) — open before any authorised migration or configuration change; skip when neither is present.
 4. [`builder-verification-and-deviation`](skills/builder-verification-and-deviation/SKILL.md) — always open before Tester handoff and immediately when scope, policy, Design, invariant, migration, or authority differs from plan.
 
+Shared skills: open [`tdd`](../../shared/skills/tdd/SKILL.md) for the red-then-green discipline on the authorised increment, and [`code-review`](../../shared/skills/code-review/SKILL.md) to read your own diff before handoff. Neither grants merge or release authority.
+
 Use [`templates/builder-receipt.md`](templates/builder-receipt.md) for the output shape.
 
 ## Decision gates
@@ -958,6 +982,8 @@ Open skills according to the claims under test:
 3. [`tester-concurrency-boundaries`](skills/tester-concurrency-boundaries/SKILL.md) — open only when a claim or risk depends on simultaneous attempts, ordering, uniqueness, process count, store, or distributed topology. Skip when concurrency is irrelevant.
 4. [`tester-defect-and-handoff`](skills/tester-defect-and-handoff/SKILL.md) — open for every failure, rerun, coverage classification, and Reviewer handoff.
 
+Shared skill: open [`tdd`](../../shared/skills/tdd/SKILL.md) when judging whether a check observes public behaviour and whether its failure is meaningful. It never supplies the approved expectation.
+
 Use [`templates/tester-evidence.md`](templates/tester-evidence.md) for the output shape.
 
 ## Decision gates
@@ -1168,6 +1194,8 @@ Use all three review skills in dependency order for a decision:
 1. [`reviewer-revision-and-acceptance`](skills/reviewer-revision-and-acceptance/SKILL.md) — pin exact revisions and trace every criterion sub-claim across intent, implementation, and observed assertions. Stop intake when evidence cannot be matched.
 2. [`reviewer-risk-and-false-green`](skills/reviewer-risk-and-false-green/SKILL.md) — challenge sufficiency with deletion attacks and inspect authorisation, lifecycle, consistency, security, disclosure, and topology risks.
 3. [`reviewer-decision-and-recheck`](skills/reviewer-decision-and-recheck/SKILL.md) — issue `changes_requested`, `merge_candidate`, or `blocked`, separate release confidence, and define invalidation/recheck rules.
+
+Shared skill: open [`code-review`](../../shared/skills/code-review/SKILL.md) to keep spec findings apart from implementation and standards findings. It never grants merge or release authority.
 
 Use [`templates/reviewer-decision.md`](templates/reviewer-decision.md) for the output shape.
 

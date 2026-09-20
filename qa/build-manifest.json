@@ -2,7 +2,7 @@
   "html": "web/index.html",
   "contract": "presentation/scene-control-contract.json",
   "scenes": 16,
-  "embedded_files": 37,
+  "embedded_files": 38,
   "missing": [],
   "pptx": "presentation/Masterclass-Experience.pptx",
   "pdf": "presentation/Masterclass-Experience.pdf",
