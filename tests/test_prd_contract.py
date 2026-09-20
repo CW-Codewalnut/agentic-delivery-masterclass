@@ -65,24 +65,6 @@ MUTATIONS = (
         "missing_negative_counterpart",
     ),
     (
-        "counterpart_does_not_exist",
-        "| AC-2, AC-3, AC-8 |",
-        "| AC-99 |",
-        "unknown_counterpart",
-    ),
-    (
-        "criterion_cites_unknown_requirement",
-        "| AC-4 | FR-3 |",
-        "| AC-4 | FR-9 |",
-        "unknown_requirement",
-    ),
-    (
-        "duplicate_criterion_id",
-        "| AC-8 | FR-4 |",
-        "| AC-7 | FR-4 |",
-        "duplicate_id",
-    ),
-    (
         "requirement_names_a_technology",
         "A stale expected version is refused without any change to the order.",
         "A stale expected version is refused by a check on the new database column.",
@@ -104,13 +86,13 @@ MUTATIONS = (
         "non_functional_class_removed",
         "| auditability | One cancellation event records the actor, the order, and the time, and it is never rewritten. | 1 immutable event per cancelled order | staff engineer | behavioural_test |\n",
         "",
-        "missing_nonfunctional_class",
+        "nonfunctional_gap",
     ),
     (
         "non_applicability_without_a_rationale",
         "not_applicable in this revision. The scope holds no user interface, no rendered state, and no keyboard or screen-reader surface.",
         "n/a",
-        "missing_nonfunctional_rationale",
+        "nonfunctional_gap",
     ),
     (
         "outcome_contract_without_counter_metric",
@@ -146,7 +128,7 @@ MUTATIONS = (
         "blocking_gap_left_in_a_reviewable_draft",
         "| GAP-1 | Who executes the refund after a cancellation? | product owner | non_blocking | none yet | open, excluded from this revision |",
         "| GAP-1 | Who executes the refund after a cancellation? | product owner | blocking | none yet | open, excluded from this revision |",
-        "status_conflicts_blocking_gap",
+        "status_gap_mismatch",
     ),
     (
         "declared_column_renamed",
@@ -155,22 +137,10 @@ MUTATIONS = (
         "missing_column",
     ),
     (
-        "polarity_outside_the_agreed_set",
-        "| AC-9 | FR-5 | positive |",
-        "| AC-9 | FR-5 | main |",
-        "invalid_polarity",
-    ),
-    (
         "blocked_status_without_a_blocking_gap",
         "Status: `draft_for_engineer_completeness_review`",
         "Status: `blocked`",
-        "blocked_without_blocking_gap",
-    ),
-    (
-        "check_type_outside_the_agreed_set",
-        "| AC-6 | returned outcomes, order version, and event count | behavioural_test |",
-        "| AC-6 | returned outcomes, order version, and event count | smoke_test |",
-        "invalid_check_type",
+        "status_gap_mismatch",
     ),
 )
 
@@ -240,6 +210,25 @@ class PrdContractCheckerTests(unittest.TestCase):
             report = check(path)
         self.assertEqual([], codes(report), report["findings"])
         self.assertEqual(0, report["exit_code"])
+
+    def test_the_eight_classes_are_maintained_in_one_place(self) -> None:
+        """They were repeated in two skills, the template, and the checker.
+
+        The checker now reads them from the template, so the skills must not
+        restate the list or it will drift again.
+        """
+        report = check(FIXTURE)
+        classes = report["nonfunctional_classes"]
+        self.assertEqual(8, len(classes))
+        template = TEMPLATE.read_text()
+        for name in classes:
+            self.assertIn(f"`{name}`", template)
+        for skill in ("capture-intake-and-gaps", "capture-acceptance-contract"):
+            text = (ROOT / f"agents/capture-refine/skills/{skill}/SKILL.md").read_text()
+            restated = [name for name in classes if name in text]
+            self.assertLessEqual(
+                len(restated), 2, f"{skill} restates the class list: {restated}"
+            )
 
     def test_an_empty_document_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

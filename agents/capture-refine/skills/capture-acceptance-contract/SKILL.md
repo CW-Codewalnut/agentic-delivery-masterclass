@@ -15,7 +15,7 @@ Agreed behaviour, the decision ledger, the assumption register, the evidence reg
 4. State the observation point for each criterion. Name public behaviour a test can observe, never internal state, a private field, or an implementation detail.
 5. Mark each criterion `behavioural_test`, `manual_check`, or `instrumented_metric`, and say which existing evidence already covers it.
 6. Derive the expected-failure list. For every `behavioural_test` criterion, state the failure it must show before the change exists. A criterion with no expected failure cannot drive a test.
-7. Write one non-functional criterion for each of security, privacy, accessibility, reliability, operability, auditability, compliance, and regional concerns. Give a threshold and an owner, or give a stated reason for non-applicability. A blank is not a reason.
+7. Write one non-functional criterion for each class the output template lists. Give a threshold and an owner, or give a stated reason for non-applicability. A blank is not a reason.
 8. Write the outcome contract: the success metric, the counter-metric that would expose harm, and the instrumentation both metrics need.
 9. Recheck traceability in both directions. Every criterion cites a requirement, and every requirement carries at least one criterion.
 

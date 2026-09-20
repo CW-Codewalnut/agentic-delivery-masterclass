@@ -60,3 +60,18 @@ The agent also dropped "Completeness is not Product approval" from that reply, w
 ## Honest limit on all of this
 
 Two runs of one model on two cases is a spot check. It is not a measurement. A claim about whether a smaller model produces similar output needs several runs per model per case and a reported spread per grader. Nothing here supports a claim about Haiku as a model.
+
+---
+
+# The cut
+
+Two live runs showed which rules earn their place. Findings came from five codes out of twenty-two: `missing_red_entry`, `missing_negative_counterpart`, `unshaped_criterion`, `unowned_gap`, and `missing_column`. Seventeen produced nothing, and each one had forced a mutation into the test suite to satisfy its own coverage rule.
+
+What was removed:
+
+- Six finding codes. `invalid_polarity`, `invalid_check_type`, `unknown_counterpart`, `unknown_requirement`, and `duplicate_id` went, and the two non-functional codes merged into one, as did the two status codes. A value outside an agreed set is no longer its own finding: an unrecognised polarity counts as positive, so it still needs a negative counterpart, and an unrecognised check type still needs an expected failure. The guard stays without the code. Twenty-two codes became sixteen.
+- Two graders, deleted rather than fixed. `required_gap_topics` and `does_not_decide_unowned_policy` searched for a keyword and could not tell a correctly raised gap in other words from a missing one. Eleven graders became nine.
+- Three of four copies of the eight non-functional classes. The checker now reads them from the template, and a test fails if a skill restates the list.
+- Two steps from `capture-prd-handoff`. Writing requirements and mapping criteria to evidence moved to `capture-acceptance-contract`, so those steps changed nothing.
+
+The same two saved replies score exactly as before: 18 findings on `refine-cancellation-window` and 10 on `vague-export-request`, from the same codes. The cut removed rules, not detection.

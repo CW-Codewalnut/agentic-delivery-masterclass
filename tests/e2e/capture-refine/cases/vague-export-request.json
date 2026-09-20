@@ -11,29 +11,6 @@
     "prd_status": "blocked",
     "prd_contract": "pass",
     "min_questions": 3,
-    "must_not_decide": [
-      "retention",
-      "permission"
-    ],
-    "required_gap_topics": [
-      [
-        "retention",
-        "retain",
-        "how long"
-      ],
-      [
-        "permission",
-        "who may",
-        "belonging to other",
-        "entitled",
-        "allowed to export"
-      ],
-      [
-        "identity",
-        "ticket",
-        "stable reference"
-      ]
-    ],
     "design_state_in": [
       "absent",
       "incomplete"

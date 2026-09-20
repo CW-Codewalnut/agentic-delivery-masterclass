@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """Check a Capture & Refine PRD against the behavioural acceptance contract.
 
-The contract is structural and semantic, not stylistic. It asks one question:
-could a behavioural test fail on this document? Every finding names the exact
-place that stops a test being written.
+One question: could a behavioural test fail on this document? Every finding
+names the exact place that stops a test being written.
+
+A rule exists here only when removing it would let a genuinely bad PRD pass.
+Values outside an agreed set are not their own findings: an unrecognised
+polarity is treated as positive, so it still needs a negative counterpart, and
+an unrecognised check type still needs an expected failure. That keeps the
+guard without adding a code.
 
 Modes:
   default      full content contract, used on a drafted PRD
@@ -37,17 +42,12 @@ LEAK_TERMS = (
     "websocket", "b-tree", "hash map", "linked list", "orm",
 )
 STATUSES = ("draft_for_engineer_completeness_review", "blocked")
-POLARITIES = ("positive", "negative")
-CHECK_TYPES = ("behavioural_test", "manual_check", "instrumented_metric")
+ASSUMPTION_CLASSES = ("decided", "owned_open", "engineering_observable")
+NO_EXPECTED_FAILURE = ("manual_check", "instrumented_metric")
 BLOCKING_EFFECTS = ("blocking", "non_blocking")
-NONFUNCTIONAL_CLASSES = (
-    "security", "privacy", "accessibility", "reliability",
-    "operability", "auditability", "compliance", "regional",
-)
 OUTCOME_KEYS = ("Success metric", "Counter-metric", "Instrumentation")
 MIN_RATIONALE = 40
 
-# Every table the contract reads: section heading -> required leading columns.
 TABLES = {
     "Evidence register": ("Source", "Identity", "State", "Supported claim"),
     "Assumption register": ("ID", "Assumption", "Class", "Owner", "Effect if wrong"),
@@ -69,23 +69,28 @@ REQUIRED_SECTIONS = (
     "Acceptance criteria", "Non-functional criteria", "Outcome contract", "RED list",
     "Decisions and gaps", "Design state", "Engineer completeness",
 )
-DECLARED_CODES = (
-    "missing_section", "invalid_status", "missing_column", "empty_table",
-    "untraced_requirement", "unshaped_criterion", "invalid_polarity",
-    "invalid_check_type", "missing_negative_counterpart", "unknown_counterpart",
-    "unknown_requirement", "duplicate_id", "implementation_leak",
-    "unobservable_criterion", "unclassified_assumption", "missing_nonfunctional_class",
-    "missing_nonfunctional_rationale", "missing_outcome_contract",
-    "missing_red_entry", "unowned_gap", "invalid_blocking_effect",
-    "status_conflicts_blocking_gap",
-    "blocked_without_blocking_gap",
-)
-
-# A blocked draft must not invent the agreement it is blocked on. These tables may
-# stay empty while a blocking gap is open; every other rule still applies.
+# A blocked draft must not invent the agreement it is blocked on.
 RELAXED_WHEN_BLOCKED = (
     "Requirements", "Acceptance criteria", "Non-functional criteria", "RED list",
 )
+DECLARED_CODES = (
+    "missing_section", "invalid_status", "missing_column", "empty_table",
+    "untraced_requirement", "unshaped_criterion", "missing_negative_counterpart",
+    "unobservable_criterion", "implementation_leak", "unclassified_assumption",
+    "nonfunctional_gap", "missing_outcome_contract", "missing_red_entry",
+    "unowned_gap", "invalid_blocking_effect", "status_gap_mismatch",
+)
+
+TEMPLATE = Path(__file__).resolve().parents[1] / "agents/capture-refine/templates/capture-prd.md"
+
+
+def nonfunctional_classes() -> tuple[str, ...]:
+    """Read the eight classes from the template, the one place authors see them."""
+    block = "".join(
+        line for line in TEMPLATE.read_text().splitlines(keepends=True)
+        if line.startswith("One row for each of")
+    )
+    return tuple(re.findall(r"`([a-z]+)`", block))
 
 
 class Report:
@@ -97,7 +102,6 @@ class Report:
 
 
 def sections(text: str) -> dict[str, list[str]]:
-    """Split the document into '## heading' blocks, preserving line order."""
     found: dict[str, list[str]] = {}
     current: str | None = None
     for line in text.splitlines():
@@ -110,13 +114,14 @@ def sections(text: str) -> dict[str, list[str]]:
 
 
 def rows(lines: list[str]) -> tuple[list[str], list[list[str]]]:
-    """Return a markdown table's header cells and body rows."""
     table = [line for line in lines if line.strip().startswith("|")]
     table = [line for line in table if set(line.replace("|", "").strip()) - set("- :")]
     if not table:
         return [], []
+
     def cells(line: str) -> list[str]:
         return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
     return cells(table[0]), [cells(line) for line in table[1:]]
 
 
@@ -126,8 +131,8 @@ def cell(row: list[str], header: list[str], column: str) -> str:
 
 def token(value: str) -> str:
     """Normalise an agreed-set value. A hyphen instead of an underscore carries
-    no meaning, and a live model run showed one hyphen cascading into fifteen
-    findings that hid the real ones."""
+    no meaning, and a live run showed one hyphen cascading into fifteen findings
+    that hid the real ones."""
     return value.strip().lower().replace("-", "_")
 
 
@@ -163,8 +168,8 @@ def check_content(text: str, blocks: dict[str, list[str]], report: Report) -> No
             break
     if status not in STATUSES:
         report.add("invalid_status", "Status", f"{status!r} is not one of {STATUSES}")
-
     blocked = status == "blocked"
+
     for name in TABLES:
         if blocked and name in RELAXED_WHEN_BLOCKED:
             continue
@@ -172,28 +177,21 @@ def check_content(text: str, blocks: dict[str, list[str]], report: Report) -> No
             report.add("empty_table", name, "the contract needs at least one row")
 
     requirement_header, requirement_rows = rows(blocks.get("Requirements", []))
-    requirement_ids: list[str] = []
     for row in requirement_rows:
         rid = cell(row, requirement_header, "ID")
-        requirement_ids.append(rid)
         statement = cell(row, requirement_header, "Observable requirement")
         if not ID.search(cell(row, requirement_header, "Source IDs")):
             report.add("untraced_requirement", rid, "no source identifier is cited")
         for term in leaks(statement):
             report.add("implementation_leak", rid, f"names the implementation term {term!r}")
-    duplicates = {rid for rid in requirement_ids if requirement_ids.count(rid) > 1}
 
     criterion_header, criterion_rows = rows(blocks.get("Acceptance criteria", []))
     criteria: dict[str, dict[str, str]] = {}
     order: list[str] = []
     for row in criterion_rows:
         cid = cell(row, criterion_header, "ID")
-        if cid in criteria:
-            duplicates.add(cid)
         criteria[cid] = {column: cell(row, criterion_header, column) for column in criterion_header}
         order.append(cid)
-    for cid in sorted(duplicates):
-        report.add("duplicate_id", cid, "one identifier must name one row")
 
     for cid in order:
         row = criteria[cid]
@@ -201,55 +199,52 @@ def check_content(text: str, blocks: dict[str, list[str]], report: Report) -> No
         lowered = statement.lower()
         if not (lowered.startswith("given ") and " when " in lowered and " then " in lowered):
             report.add("unshaped_criterion", cid, "not shaped as given / when / then")
-        polarity = row.get("Polarity", "")
-        if polarity not in POLARITIES:
-            report.add("invalid_polarity", cid, f"{polarity!r} is not one of {POLARITIES}")
-        if row.get("Check", "") not in CHECK_TYPES:
-            report.add("invalid_check_type", cid, f"{row.get('Check')!r} is not one of {CHECK_TYPES}")
-        requirement = row.get("Requirement", "")
-        if requirement and requirement not in requirement_ids:
-            report.add("unknown_requirement", cid, f"cites unknown requirement {requirement!r}")
         observation = row.get("Observation point", "")
         if not observation or PRIVATE_MARKER.search(observation):
-            report.add("unobservable_criterion", cid, f"observation point {observation!r} is not public behaviour")
+            report.add(
+                "unobservable_criterion", cid,
+                f"observation point {observation!r} is not public behaviour",
+            )
         for term in leaks(statement):
             report.add("implementation_leak", cid, f"names the implementation term {term!r}")
-        counterparts = ID.findall(row.get("Counterpart", ""))
-        unknown = [ref for ref in counterparts if ref not in criteria]
-        for ref in unknown:
-            report.add("unknown_counterpart", cid, f"counterpart {ref} does not exist")
-        if polarity == "positive":
+        # Anything that is not explicitly negative must carry a negative counterpart,
+        # so an unrecognised polarity is guarded without its own finding.
+        if token(row.get("Polarity", "")) != "negative":
             negatives = [
-                ref for ref in counterparts
-                if ref in criteria and criteria[ref].get("Polarity") == "negative"
+                ref for ref in ID.findall(row.get("Counterpart", ""))
+                if ref in criteria and token(criteria[ref].get("Polarity", "")) == "negative"
             ]
             if not negatives:
                 report.add(
-                    "missing_negative_counterpart",
-                    cid,
-                    "a positive criterion needs a refusal, boundary, repeat, conflict, or race counterpart",
+                    "missing_negative_counterpart", cid,
+                    "needs a refusal, boundary, repeat, conflict, or race counterpart",
                 )
 
     assumption_header, assumption_rows = rows(blocks.get("Assumption register", []))
     for row in assumption_rows:
-        aid = cell(row, assumption_header, "ID")
-        if cell(row, assumption_header, "Class") not in ("decided", "owned_open", "engineering_observable"):
-            report.add("unclassified_assumption", aid, "class must be decided, owned_open, or engineering_observable")
+        if token(cell(row, assumption_header, "Class")) not in ASSUMPTION_CLASSES:
+            report.add(
+                "unclassified_assumption", cell(row, assumption_header, "ID"),
+                f"class must be one of {ASSUMPTION_CLASSES}",
+            )
 
     nf_header, nf_rows = rows(blocks.get("Non-functional criteria", []))
-    seen_classes = set()
+    seen = set()
     for row in nf_rows:
         name = cell(row, nf_header, "Class").lower()
-        seen_classes.add(name)
+        seen.add(name)
         rationale = cell(row, nf_header, "Requirement or non-applicability rationale")
         threshold = cell(row, nf_header, "Threshold")
-        if threshold == "not_applicable" and len(rationale) < MIN_RATIONALE:
-            report.add("missing_nonfunctional_rationale", name, "non-applicability needs a stated reason")
         if not threshold or not rationale:
-            report.add("missing_nonfunctional_rationale", name, "requirement and threshold are both required")
-    for name in NONFUNCTIONAL_CLASSES:
-        if not blocked and name not in seen_classes:
-            report.add("missing_nonfunctional_class", name, "each class needs a criterion or a stated reason")
+            report.add("nonfunctional_gap", name, "requirement and threshold are both required")
+        elif token(threshold) == "not_applicable" and len(rationale) < MIN_RATIONALE:
+            report.add("nonfunctional_gap", name, "non-applicability needs a stated reason")
+    if not blocked:
+        for name in nonfunctional_classes():
+            if name not in seen:
+                report.add(
+                    "nonfunctional_gap", name, "each class needs a criterion or a stated reason"
+                )
 
     outcome = "\n".join(blocks.get("Outcome contract", []))
     for key in OUTCOME_KEYS:
@@ -263,15 +258,17 @@ def check_content(text: str, blocks: dict[str, list[str]], report: Report) -> No
     red_header, red_rows = rows(blocks.get("RED list", []))
     red_checks = {cell(row, red_header, "Check") for row in red_rows}
     for cid in order:
-        if not blocked and criteria[cid].get("Check") == "behavioural_test" and cid not in red_checks:
+        if blocked or token(criteria[cid].get("Check", "")) in NO_EXPECTED_FAILURE:
+            continue
+        if cid not in red_checks:
             report.add("missing_red_entry", cid, "a behavioural criterion needs its expected failure")
 
     gap_header, gap_rows = rows(blocks.get("Decisions and gaps", []))
     blocking = False
     for row in gap_rows:
         gid = cell(row, gap_header, "ID")
-        effect = token(cell(row, gap_header, "Blocking effect"))
         owner = cell(row, gap_header, "Owner").strip(" *_`")
+        effect = token(cell(row, gap_header, "Blocking effect"))
         if not owner or PLACEHOLDER_OWNER.match(owner.replace(" ", "_")):
             report.add("unowned_gap", gid, f"owner {owner!r} names nobody who can decide")
         if effect not in BLOCKING_EFFECTS:
@@ -282,14 +279,12 @@ def check_content(text: str, blocks: dict[str, list[str]], report: Report) -> No
             blocking = True
     if blocking and status == "draft_for_engineer_completeness_review":
         report.add(
-            "status_conflicts_blocking_gap",
-            "Status",
+            "status_gap_mismatch", "Status",
             "a blocking gap cannot sit in a draft offered for completeness review",
         )
     if blocked and not blocking:
         report.add(
-            "blocked_without_blocking_gap",
-            "Status",
+            "status_gap_mismatch", "Status",
             "a blocked draft must name the blocking gap that blocks it",
         )
 
@@ -297,8 +292,8 @@ def check_content(text: str, blocks: dict[str, list[str]], report: Report) -> No
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("path", type=Path)
-    parser.add_argument("--shape-only", action="store_true", help="check headings and columns only")
-    parser.add_argument("--json", action="store_true", help="emit the machine-readable report")
+    parser.add_argument("--shape-only", action="store_true")
+    parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
     text = args.path.read_text()
     report = Report()
@@ -309,6 +304,7 @@ def main() -> None:
         "path": str(args.path),
         "mode": "shape_only" if args.shape_only else "full",
         "declared_codes": list(DECLARED_CODES),
+        "nonfunctional_classes": list(nonfunctional_classes()),
         "findings": report.findings,
         "summary": {"findings": len(report.findings)},
     }

@@ -32,9 +32,13 @@ The contract asks one question: could a behavioural test fail on this document? 
 
 [`scripts/run_capture_e2e.py`](../../scripts/run_capture_e2e.py) grades what the agent produced. It never decides the outcome itself, and no model judges the result.
 
-A case in [`tests/e2e/capture-refine/cases/`](../../tests/e2e/capture-refine/cases/) holds a deliberately vague request and the behaviour expected of the agent. Eleven deterministic graders then read the transcript and the PRD:
+A case in [`tests/e2e/capture-refine/cases/`](../../tests/e2e/capture-refine/cases/) holds a deliberately vague request and the behaviour expected of the agent. Nine deterministic graders then read the transcript and the PRD:
 
-`prd_contract`, `prd_status`, `one_question_at_a_time`, `enough_questions`, `does_not_decide_unowned_policy`, `required_gap_topics`, `design_state`, `no_forbidden_claim`, `authority_boundary`, `first_skill`, and `declared_skills`.
+`prd_contract`, `prd_status`, `one_question_at_a_time`, `enough_questions`, `design_state`, `no_forbidden_claim`, `authority_boundary`, `first_skill`, and `declared_skills`.
+
+Two earlier graders were deleted rather than fixed. `required_gap_topics` and `does_not_decide_unowned_policy` searched the PRD for a keyword. A live run raised the permission gap as "data belonging to other users" and scored a miss. Widening each topic to a list of acceptable wordings made the grader longer, not correct: an agent that raises the right gap in wording nobody listed still scored a miss, and one that used the word without raising the gap still scored a pass. A grader that cannot distinguish those two cases is not evidence, so it is gone. Whether the agent kept out of Product policy is now a human judgement on the PRD.
+
+The graders that remain read structure, a declared value, or a sentence the contract requires verbatim. None of them tries to judge meaning.
 
 The harness needs an execution source and refuses to report a result without one:
 
@@ -63,7 +67,5 @@ A live run is not deterministic. Two runs of one model can score differently, so
 ## What these tests do not prove
 
 [`scripts/run_scenario_checks.py`](../../scripts/run_scenario_checks.py) simulates the gate decisions in Python. It proves the simulation, not the agent, and it says so in its own output. Level 2 is the honest agent test.
-
-Every Level 2 grader that reads text matches wording, never meaning. A live run raised the permission gap as "data belonging to other users" and scored a miss, because the grader looked for the word "permission". A required topic is now a list of acceptable wordings, which widens the match but does not change its nature. An agent that raises the right gap in wording nobody listed still scores a miss, and an agent that uses the word without raising the gap still scores a pass. Semantic grading needs a judge, and this harness deliberately has none. Read a topic grader as a vocabulary proxy, not as proof.
 
 Level 2 grades artefacts against stated rules. A pass means the PRD satisfied the contract and the agent stayed inside its authority. It does not prove the wording is good, the Product decisions are right, or the behaviour is worth building. Those stay human decisions on an exact revision.

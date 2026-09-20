@@ -32,8 +32,6 @@ DECLARED_GRADERS = (
     "prd_status",
     "one_question_at_a_time",
     "enough_questions",
-    "does_not_decide_unowned_policy",
-    "required_gap_topics",
     "design_state",
     "no_forbidden_claim",
     "authority_boundary",
@@ -121,30 +119,6 @@ def grade(case: dict, transcript: dict, work: Path) -> dict[str, dict]:
         "enough_questions",
         len(questions) >= minimum,
         f"asked {len(questions)}, the case expects at least {minimum}",
-    )
-
-    requirements = section(prd, "Requirements").lower()
-    decided = [topic for topic in expect.get("must_not_decide", []) if topic.lower() in requirements]
-    record(
-        "does_not_decide_unowned_policy",
-        not decided,
-        "decided as a requirement: " + ", ".join(decided) if decided else "no unowned policy was decided",
-    )
-
-    # A topic is a list of acceptable wordings, or one string. A grader that
-    # matches a single literal word tests vocabulary, not behaviour: a live run
-    # raised the permission gap as "data belonging to other users" and scored a
-    # miss. String matching still tests wording, never meaning; see TESTING.md.
-    gaps = section(prd, "Decisions and gaps").lower()
-    absent = []
-    for topic in expect.get("required_gap_topics", []):
-        wordings = [topic] if isinstance(topic, str) else list(topic)
-        if not any(wording.lower() in gaps for wording in wordings):
-            absent.append(wordings[0])
-    record(
-        "required_gap_topics",
-        not absent,
-        "absent from the gap table: " + ", ".join(absent) if absent else "every required topic is a visible gap",
     )
 
     design = section(prd, "Design state")

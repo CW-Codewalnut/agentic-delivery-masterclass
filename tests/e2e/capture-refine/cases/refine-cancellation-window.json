@@ -20,20 +20,6 @@
     "prd_status": "draft_for_engineer_completeness_review",
     "prd_contract": "pass",
     "min_questions": 4,
-    "must_not_decide": [
-      "refund",
-      "notification"
-    ],
-    "required_gap_topics": [
-      [
-        "refund",
-        "payment reversal"
-      ],
-      [
-        "notification",
-        "notify"
-      ]
-    ],
     "design_state_in": [
       "not_required"
     ],

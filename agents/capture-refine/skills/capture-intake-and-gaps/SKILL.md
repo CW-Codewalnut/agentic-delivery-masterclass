@@ -14,7 +14,7 @@ Stable request identity; supplied feature, design, and supporting sources; repos
 3. Capture only current-system constraints needed to state behaviour truthfully. Keep possible implementations and broad architecture with Planner.
 4. Classify each claim as requested, observed, decided, conflicting, proposed, or unknown.
 5. Check actors, permissions, lifecycle, validation, loading/empty states, failure, recovery, retry, repeated action, concurrency, idempotency, side effects, and measurable outcomes.
-6. Check applicable security, privacy, accessibility, reliability, operability, auditability, compliance, and regional concerns; give a rationale for material non-applicability.
+6. Check each non-functional class the output template lists; give a rationale for material non-applicability.
 7. Classify design as aligned, incomplete, mismatched, absent, or not required. For every gap, name the decision, evidence, owner, and blocking effect.
 
 ## Output
