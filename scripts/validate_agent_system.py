@@ -74,8 +74,8 @@ def main() -> None:
         errors.append(f"skill membership/orphan mismatch: declared={len(declared_skills)} actual={len(actual_skills)}")
     if declared_templates != actual_templates:
         errors.append(f"template membership mismatch: declared={len(declared_templates)} actual={len(actual_templates)}")
-    if (len(actual_roles), len(actual_skills), len(actual_templates)) != (7, 25, 7):
-        errors.append("canonical inventory must be 7 roles, 25 skills, and 7 templates")
+    if (len(actual_roles), len(actual_skills), len(actual_templates)) != (7, 27, 7):
+        errors.append("canonical inventory must be 7 roles, 27 skills, and 7 templates")
     if (root / "agent-system").exists():
         errors.append("obsolete agent-system canonical tree still exists")
     if list((root / "agents").rglob("workflow.md")) or list((root / "agents").rglob("WORKFLOW.md")):

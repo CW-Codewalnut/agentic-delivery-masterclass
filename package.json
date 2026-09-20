@@ -6,6 +6,8 @@
     "build": ".venv/bin/python scripts/build_experience.py",
     "build:slice": ".venv/bin/python scripts/build_experience.py --slice --skip-deck",
     "test": "playwright test && python3 scripts/sanitize_playwright_results.py",
+    "test:agents": "python3 scripts/validate_agent_system.py && python3 scripts/run_scenario_checks.py && python3 -m unittest tests.test_agent_first_system tests.test_content_contract tests.test_prd_contract tests.test_capture_e2e tests.test_order_cancellation",
+    "test:e2e": "python3 scripts/run_capture_e2e.py --transcript-dir tests/e2e/capture-refine/recorded --output docs/audit/capture-e2e-results.json",
     "test:visual": "playwright test tests/visual.spec.js"
   },
   "devDependencies": {

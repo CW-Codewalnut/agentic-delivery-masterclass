@@ -21,6 +21,18 @@ Files inspected:
 - Delivery tickets should be narrow vertical slices with explicit blocking edges.
 - Review should keep intent/spec findings distinct from implementation/standards findings.
 
+## Where each idea now sits
+
+| Source idea | Canonical place in this repository |
+| --- | --- |
+| A strong trigger decides when a skill opens | every `description` starts with `Use when`, checked by `scripts/validate_agent_system.py` |
+| A skill earns its place by changing behaviour | `capture-grill-and-decide` step 6 applies the no-op test to each answer; a skill that changes no requirement, criterion, or gap is discarded |
+| Interrogate before accepting | `capture-grill-and-decide` asks one decision-shaped question at a time and never bundles two |
+| A spec is testable, unambiguous, and free of implementation | `capture-acceptance-contract`, enforced by `scripts/check_prd_contract.py` |
+| Tests observe public behaviour and include a meaningful RED | the `Observation point` and expected-failure rules in the PRD contract, and the seeded-defect suites in `docs/agent-system/TESTING.md` |
+| Delivery slices are narrow with explicit blocking edges | `planner-delivery-slices`, fed by paired criteria from `capture-acceptance-contract` |
+| Review keeps spec findings apart from implementation findings | `reviewer-revision-and-acceptance` and `reviewer-risk-and-false-green` |
+
 The revised files use those design principles but do not copy source prose, templates, or implementation. Matt Pocock and the `mattpocock/skills` contributors have not reviewed or endorsed this repository. The original source remains under its own MIT license.
 
 No exact “no-op” quotation is attributed here. The source itself contains a section titled **Pruning** that defines its no-op test; the pinned link above is the evidence.

@@ -1,0 +1,5 @@
+----------------------------------------------------------------------
+Ran 7 tests in 0.230s
+
+FAILED (failures=4, errors=12)
+exit code: 1 (harness absent)

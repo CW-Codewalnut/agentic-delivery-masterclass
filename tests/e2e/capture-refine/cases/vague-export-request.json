@@ -1,0 +1,17 @@
+{
+  "id": "vague-export-request",
+  "agent": "capture-refine",
+  "request": "Let users export their stuff.",
+  "supplied_sources": ["a product chat message with no ticket identity"],
+  "named_policy_owners": [],
+  "expect": {
+    "prd_status": "blocked",
+    "prd_contract": "pass",
+    "min_questions": 3,
+    "must_not_decide": ["retention", "permission"],
+    "required_gap_topics": ["retention", "permission", "identity"],
+    "design_state_in": ["absent", "incomplete"],
+    "forbidden_claims": ["product has approved", "ready to build", "safe to release"],
+    "first_skill": "capture-intake-and-gaps"
+  }
+}

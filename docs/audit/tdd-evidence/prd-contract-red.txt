@@ -1,0 +1,6 @@
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.309s
+
+FAILED (failures=22)
+exit code: 1 (checker absent)

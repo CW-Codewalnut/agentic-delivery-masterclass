@@ -24,7 +24,9 @@
       "role": "agents/capture-refine/ROLE.md",
       "skills": [
         "agents/capture-refine/skills/capture-intake-and-gaps/SKILL.md",
+        "agents/capture-refine/skills/capture-grill-and-decide/SKILL.md",
         "agents/capture-refine/skills/capture-engineer-interview/SKILL.md",
+        "agents/capture-refine/skills/capture-acceptance-contract/SKILL.md",
         "agents/capture-refine/skills/capture-prd-handoff/SKILL.md"
       ],
       "template": "agents/capture-refine/templates/capture-prd.md"

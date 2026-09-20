@@ -20,6 +20,9 @@
 ## Content contract evidence
 `tests/test_content_contract.py` verifies all seven role filenames and order, mandatory role contract sections, seven separate substantive skills with inputs/steps/outputs/stop gates/examples, separate domain policy, and absence of private-name or local-absolute-path markers in public materials.
 
+## Agent-system contract evidence
+`scripts/check_prd_contract.py` enforces the PRD acceptance contract, and `tests/test_prd_contract.py` proves it with twenty-one seeded defects plus a coverage test over all twenty-two finding codes. `scripts/run_capture_e2e.py` grades Capture & Refine end to end, and `tests/test_capture_e2e.py` proves its eleven graders with eleven seeded transcript defects plus a coverage test. `docs/audit/tdd-evidence/` retains the RED runs recorded before the checker, the harness, and the two new skills existed, and the GREEN run recorded after. `docs/agent-system/TESTING.md` states what those suites do not prove.
+
 ## RED/GREEN provenance
 - `worked-example/evidence/red.txt` retains the historical pre-implementation failure: missing `order_cancellation` module, exit 1. It proves only that the suite detects a completely missing implementation.
 - `worked-example/evidence/reproduce_idempotency_negative_control.py` reproducibly mutates exact replay in a disposable copy. `semantic-red.txt` records the resulting focused assertion failure, exit 1, plus SHA-256 identities for the reproducer, unmutated implementation, and behavior tests.

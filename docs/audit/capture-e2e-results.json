@@ -1,0 +1,131 @@
+{
+  "classification": "graded agent output; every grader is deterministic, no model judges the result",
+  "agent_execution": false,
+  "execution_source": "recorded_transcript",
+  "command": "",
+  "judge_model": "none",
+  "declared_graders": [
+    "prd_contract",
+    "prd_status",
+    "one_question_at_a_time",
+    "enough_questions",
+    "does_not_decide_unowned_policy",
+    "required_gap_topics",
+    "design_state",
+    "no_forbidden_claim",
+    "authority_boundary",
+    "first_skill",
+    "declared_skills"
+  ],
+  "summary": {
+    "cases": 2,
+    "passed": 2,
+    "failed": 0
+  },
+  "results": [
+    {
+      "case": "refine-cancellation-window",
+      "request": "Let people cancel orders if it is not too late.",
+      "passed": true,
+      "failed_graders": [],
+      "graders": {
+        "prd_contract": {
+          "passed": true,
+          "detail": "0 findings: "
+        },
+        "prd_status": {
+          "passed": true,
+          "detail": "status is 'draft_for_engineer_completeness_review', the case expects 'draft_for_engineer_completeness_review'"
+        },
+        "one_question_at_a_time": {
+          "passed": true,
+          "detail": "0 question(s) carry more or fewer than one question mark"
+        },
+        "enough_questions": {
+          "passed": true,
+          "detail": "asked 5, the case expects at least 4"
+        },
+        "does_not_decide_unowned_policy": {
+          "passed": true,
+          "detail": "no unowned policy was decided"
+        },
+        "required_gap_topics": {
+          "passed": true,
+          "detail": "every required topic is a visible gap"
+        },
+        "design_state": {
+          "passed": true,
+          "detail": "design state is ['not_required'], the case allows ['not_required']"
+        },
+        "no_forbidden_claim": {
+          "passed": true,
+          "detail": "no authority claim beyond the role"
+        },
+        "authority_boundary": {
+          "passed": true,
+          "detail": "the PRD must still say completeness is not Product approval"
+        },
+        "first_skill": {
+          "passed": true,
+          "detail": "opened ['capture-intake-and-gaps'] first, the case expects 'capture-intake-and-gaps'"
+        },
+        "declared_skills": {
+          "passed": true,
+          "detail": "every opened skill is agent-owned"
+        }
+      }
+    },
+    {
+      "case": "vague-export-request",
+      "request": "Let users export their stuff.",
+      "passed": true,
+      "failed_graders": [],
+      "graders": {
+        "prd_contract": {
+          "passed": true,
+          "detail": "0 findings: "
+        },
+        "prd_status": {
+          "passed": true,
+          "detail": "status is 'blocked', the case expects 'blocked'"
+        },
+        "one_question_at_a_time": {
+          "passed": true,
+          "detail": "0 question(s) carry more or fewer than one question mark"
+        },
+        "enough_questions": {
+          "passed": true,
+          "detail": "asked 4, the case expects at least 3"
+        },
+        "does_not_decide_unowned_policy": {
+          "passed": true,
+          "detail": "no unowned policy was decided"
+        },
+        "required_gap_topics": {
+          "passed": true,
+          "detail": "every required topic is a visible gap"
+        },
+        "design_state": {
+          "passed": true,
+          "detail": "design state is ['absent'], the case allows ['absent', 'incomplete']"
+        },
+        "no_forbidden_claim": {
+          "passed": true,
+          "detail": "no authority claim beyond the role"
+        },
+        "authority_boundary": {
+          "passed": true,
+          "detail": "the PRD must still say completeness is not Product approval"
+        },
+        "first_skill": {
+          "passed": true,
+          "detail": "opened ['capture-intake-and-gaps'] first, the case expects 'capture-intake-and-gaps'"
+        },
+        "declared_skills": {
+          "passed": true,
+          "detail": "every opened skill is agent-owned"
+        }
+      }
+    }
+  ]
+}

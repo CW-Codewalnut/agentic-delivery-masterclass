@@ -24,6 +24,15 @@ flowchart LR
 
 This is conditional and iterative, not a mandatory seven-stage release pipeline. Design can be skipped; Tester and Reviewer stay independent; human owners retain Product, Design, change, merge, release, and adoption authority.
 
+## How the system tests itself
+
+Two levels test the Capture & Refine agent, and [`docs/agent-system/TESTING.md`](docs/agent-system/TESTING.md) describes both.
+
+- `scripts/check_prd_contract.py` asks one question of a PRD: could a behavioural test fail on it? It checks traceability, given/when/then shape, a negative counterpart for every positive criterion, a public observation point, an expected failure for every behavioural criterion, eight non-functional classes, the outcome contract, and gap ownership.
+- `scripts/run_capture_e2e.py` grades the agent end to end, from a deliberately vague request to the PRD it produced. Eleven graders are deterministic, no model judges the result, and the harness refuses to report a result without an execution source.
+
+Both suites prove themselves by seeding one defect at a time and asserting that the named check catches it. A coverage test fails when any finding code or grader has no negative control.
+
 ## Browse each agent
 
 Open a toggle to see the owned folder, role/skill workflow, links, and the **actual maintained text** of `ROLE.md` and every nested `SKILL.md`. This section is generated from canonical sources by `scripts/render_readme_agents.py`; `--check` fails if any embedded text drifts.
@@ -35,15 +44,17 @@ Open a toggle to see the owned folder, role/skill workflow, links, and the **act
 
 - **Owned folder:** [`agents/capture-refine/`](agents/capture-refine/)
 - **Role:** [`ROLE.md`](agents/capture-refine/ROLE.md)
-- **Skills owned:** [`capture-intake-and-gaps`](agents/capture-refine/skills/capture-intake-and-gaps/SKILL.md), [`capture-engineer-interview`](agents/capture-refine/skills/capture-engineer-interview/SKILL.md), [`capture-prd-handoff`](agents/capture-refine/skills/capture-prd-handoff/SKILL.md)
+- **Skills owned:** [`capture-intake-and-gaps`](agents/capture-refine/skills/capture-intake-and-gaps/SKILL.md), [`capture-grill-and-decide`](agents/capture-refine/skills/capture-grill-and-decide/SKILL.md), [`capture-engineer-interview`](agents/capture-refine/skills/capture-engineer-interview/SKILL.md), [`capture-acceptance-contract`](agents/capture-refine/skills/capture-acceptance-contract/SKILL.md), [`capture-prd-handoff`](agents/capture-refine/skills/capture-prd-handoff/SKILL.md)
 - **Output template:** [`capture-prd.md`](agents/capture-refine/templates/capture-prd.md)
 
 ```mermaid
 flowchart LR
   R["ROLE.md<br/>owns Capture & Refine gates and selection"]
   R -->|"when trigger applies"| S1["capture-intake-and-gaps"]
-  R -->|"when trigger applies"| S2["capture-engineer-interview"]
-  R -->|"when trigger applies"| S3["capture-prd-handoff"]
+  R -->|"when trigger applies"| S2["capture-grill-and-decide"]
+  R -->|"when trigger applies"| S3["capture-engineer-interview"]
+  R -->|"when trigger applies"| S4["capture-acceptance-contract"]
+  R -->|"when trigger applies"| S5["capture-prd-handoff"]
   R --> T["capture-prd.md<br/>handoff shape"]
 ```
 
@@ -70,14 +81,19 @@ Start when a named request is ambiguous or incomplete. Read only relevant prior 
 Open only the skills needed for the case, in this order when their trigger applies:
 
 1. [`capture-intake-and-gaps`](skills/capture-intake-and-gaps/SKILL.md) — always start here to separate supplied facts, repository evidence, proposals, and owned decisions.
-2. [`capture-engineer-interview`](skills/capture-engineer-interview/SKILL.md) — open only when current-system behaviour or engineering-observable completeness remains unknown; skip when the evidence already answers those questions. Engineering evidence cannot decide Product policy.
-3. [`capture-prd-handoff`](skills/capture-prd-handoff/SKILL.md) — open once the gap register is explicit enough to draft traceable requirements, criteria, and an exact handoff. Skip while blocking gaps lack owners.
+2. [`capture-grill-and-decide`](skills/capture-grill-and-decide/SKILL.md) — open when the request or the draft still holds an ambiguity, a silent assumption, or an unowned decision; skip only when every assumption is already classified and owned. Preference never settles a Product decision.
+3. [`capture-engineer-interview`](skills/capture-engineer-interview/SKILL.md) — open only when current-system behaviour or engineering-observable completeness remains unknown; skip when the evidence already answers those questions. Engineering evidence cannot decide Product policy.
+4. [`capture-acceptance-contract`](skills/capture-acceptance-contract/SKILL.md) — open once behaviour is agreed, to turn it into paired criteria, non-functional thresholds, an outcome contract, and an expected-failure list. Skip while a blocking gap stays open.
+5. [`capture-prd-handoff`](skills/capture-prd-handoff/SKILL.md) — open once the acceptance contract is complete enough to bind an exact revision and an exact handoff. Skip while blocking gaps lack owners.
 
 Use [`templates/capture-prd.md`](templates/capture-prd.md) for the output shape.
 
 ## Decision gates
 
-- Every gap has a named owner and blocking effect before drafting is called complete.
+- Every gap has a named owner and a blocking effect before drafting is called complete.
+- Every positive acceptance criterion carries at least one negative counterpart, and every behavioural criterion carries its expected failure.
+- Every residual assumption is visible and classified; a silent assumption blocks the draft.
+- A blocking gap holds the status at `blocked`; it is never offered for completeness review.
 - Architecture choices go to Planner; incomplete interaction design is flagged for Design.
 - Product approval remains a separate named decision on an exact revision.
 
@@ -91,7 +107,7 @@ Stop when request identity or relevant evidence is missing, a Product-policy que
 
 ## Completion criterion
 
-An exact PRD revision is ready for engineer completeness review, with every gap visible and every acceptance statement traceable.
+An exact PRD revision is ready for engineer completeness review, with every gap visible, every acceptance statement traceable, and every behavioural criterion paired with the failure it must show before the change exists.
 
 ## Authority limit
 
@@ -141,6 +157,43 @@ Stop when request identity is missing, a controlling source cannot be inspected,
 </details>
 
 <details>
+<summary>Actual <code>capture-grill-and-decide/SKILL.md</code> text</summary>
+
+[`agents/capture-refine/skills/capture-grill-and-decide/SKILL.md`](agents/capture-refine/skills/capture-grill-and-decide/SKILL.md)
+
+<!-- source-start:agents/capture-refine/skills/capture-grill-and-decide/SKILL.md -->
+```yaml
+---
+name: capture-grill-and-decide
+description: Use when a request or a draft PRD still holds an ambiguity, a silent assumption, or an unowned decision that no test could fail on.
+---
+```
+
+# capture-grill-and-decide
+
+## Inputs
+The supplied request, the source and gap registers, and the named Product and Engineering owners.
+
+## Procedure
+1. Restate the request as one sentence of observable behaviour. Stop and ask when you cannot.
+2. List every assumption you would have to make to write one acceptance criterion. Classify each as `decided`, `owned_open`, or `engineering_observable`, and name its owner.
+3. Ask one decision-shaped question at a time. Give the candidate answers and the consequence of each. Never bundle two questions into one.
+4. Attack the draft requirement by requirement. For each, name the actor, precondition, state, and observable outcome that is still unstated. A requirement no test could fail on is not yet a requirement.
+5. Reject wording that names a technology, a schema, or an algorithm. Rewrite it as observable behaviour, or route it to Planner as an architecture question.
+6. Apply the no-op test to every answer. Discard an answer that changes no requirement, no criterion, and no gap.
+7. Recheck after each material answer. An answer that changes a `decided` item invalidates every criterion that cites it.
+8. Leave each residual assumption visible in the assumption register with its owner and its effect if wrong. Never resolve an owned Product decision by preference.
+
+## Output
+A decision ledger of asked questions and recorded answers, an assumption register with every residual assumption classified and owned, and a routed list of architecture or design wording removed from the draft.
+
+## Stop condition
+Stop when the next answer needs Product policy that has no named owner, when the request has no stable identity, or when every remaining ambiguity is non-blocking and recorded.
+<!-- source-end:agents/capture-refine/skills/capture-grill-and-decide/SKILL.md -->
+
+</details>
+
+<details>
 <summary>Actual <code>capture-engineer-interview/SKILL.md</code> text</summary>
 
 [`agents/capture-refine/skills/capture-engineer-interview/SKILL.md`](agents/capture-refine/skills/capture-engineer-interview/SKILL.md)
@@ -170,6 +223,44 @@ An ordered interview record and updated gap register.
 ## Stop condition
 Stop when the next answer requires Product policy, Design intent, or repository evidence not yet inspected.
 <!-- source-end:agents/capture-refine/skills/capture-engineer-interview/SKILL.md -->
+
+</details>
+
+<details>
+<summary>Actual <code>capture-acceptance-contract/SKILL.md</code> text</summary>
+
+[`agents/capture-refine/skills/capture-acceptance-contract/SKILL.md`](agents/capture-refine/skills/capture-acceptance-contract/SKILL.md)
+
+<!-- source-start:agents/capture-refine/skills/capture-acceptance-contract/SKILL.md -->
+```yaml
+---
+name: capture-acceptance-contract
+description: Use when agreed behaviour must become a testable acceptance set and an expected-failure list before any plan, design, or code exists.
+---
+```
+
+# capture-acceptance-contract
+
+## Inputs
+Agreed behaviour, the decision ledger, the assumption register, the evidence register, and the named threshold owners.
+
+## Procedure
+1. Write each requirement as one observable statement with an identifier, and cite the source identifiers that support it.
+2. Write each acceptance criterion as `Given <state>, when <action>, then <observable outcome>`. Keep one behaviour in one criterion.
+3. Name at least one negative counterpart for every positive criterion: refusal, boundary, repeat, conflict, or concurrency. Record the pairing on both rows.
+4. State the observation point for each criterion. Name public behaviour a test can observe, never internal state, a private field, or an implementation detail.
+5. Mark each criterion `behavioural_test`, `manual_check`, or `instrumented_metric`, and say which existing evidence already covers it.
+6. Derive the expected-failure list. For every `behavioural_test` criterion, state the failure it must show before the change exists. A criterion with no expected failure cannot drive a test.
+7. Write one non-functional criterion for each of security, privacy, accessibility, reliability, operability, auditability, compliance, and regional concerns. Give a threshold and an owner, or give a stated reason for non-applicability. A blank is not a reason.
+8. Write the outcome contract: the success metric, the counter-metric that would expose harm, and the instrumentation both metrics need.
+9. Recheck traceability in both directions. Every criterion cites a requirement, and every requirement carries at least one criterion.
+
+## Output
+A traceable requirement set, paired positive and negative acceptance criteria with observation points, an expected-failure list, non-functional criteria with thresholds and owners, and the outcome contract.
+
+## Stop condition
+Stop when a criterion has no observable outcome, when a threshold has no owner, or when stating the criterion would require an architecture, design, or implementation choice.
+<!-- source-end:agents/capture-refine/skills/capture-acceptance-contract/SKILL.md -->
 
 </details>
 
