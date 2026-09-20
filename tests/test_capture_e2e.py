@@ -189,6 +189,23 @@ class CaptureEndToEndTests(unittest.TestCase):
         covered = {expected for _, _, expected in MUTATIONS}
         self.assertEqual(set(), declared - covered, "a declared grader has no negative control")
 
+    def test_harness_creates_no_scratch_path_inside_the_repository(self) -> None:
+        """A live run deleted the harness's in-repo scratch directory mid-run.
+
+        Scratch state belongs outside the working tree: an agent command runs
+        arbitrary code in the repository, and `git add -A` would pick the
+        directory up.
+        """
+        with tempfile.TemporaryDirectory() as temp:
+            probe = Path(temp) / "probe.json"
+            outcome = run(
+                "--cases", str(CASES),
+                "--case", REFINE,
+                "--agent-command", f"python3 {STUB} --probe {probe}",
+            )
+            self.assertEqual(0, outcome["exit_code"], outcome["stdout"] + outcome["stderr"])
+            self.assertEqual([], json.loads(probe.read_text()))
+
     def test_a_missing_transcript_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             outcome = run("--cases", str(CASES), "--transcript-dir", temp)

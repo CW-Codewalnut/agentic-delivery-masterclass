@@ -69,7 +69,8 @@ DECLARED_CODES = (
     "unknown_requirement", "duplicate_id", "implementation_leak",
     "unobservable_criterion", "unclassified_assumption", "missing_nonfunctional_class",
     "missing_nonfunctional_rationale", "missing_outcome_contract",
-    "missing_red_entry", "unowned_gap", "status_conflicts_blocking_gap",
+    "missing_red_entry", "unowned_gap", "invalid_blocking_effect",
+    "status_conflicts_blocking_gap",
     "blocked_without_blocking_gap",
 )
 
@@ -114,6 +115,13 @@ def rows(lines: list[str]) -> tuple[list[str], list[list[str]]]:
 
 def cell(row: list[str], header: list[str], column: str) -> str:
     return row[header.index(column)] if column in header and header.index(column) < len(row) else ""
+
+
+def token(value: str) -> str:
+    """Normalise an agreed-set value. A hyphen instead of an underscore carries
+    no meaning, and a live model run showed one hyphen cascading into fifteen
+    findings that hid the real ones."""
+    return value.strip().lower().replace("-", "_")
 
 
 def leaks(text: str) -> list[str]:
@@ -255,9 +263,13 @@ def check_content(text: str, blocks: dict[str, list[str]], report: Report) -> No
     blocking = False
     for row in gap_rows:
         gid = cell(row, gap_header, "ID")
-        effect = cell(row, gap_header, "Blocking effect")
-        if not cell(row, gap_header, "Owner") or effect not in BLOCKING_EFFECTS:
-            report.add("unowned_gap", gid, "every gap needs an owner and a blocking effect")
+        effect = token(cell(row, gap_header, "Blocking effect"))
+        if not cell(row, gap_header, "Owner"):
+            report.add("unowned_gap", gid, "every gap needs a named owner")
+        if effect not in BLOCKING_EFFECTS:
+            report.add(
+                "invalid_blocking_effect", gid, f"{effect!r} is not one of {BLOCKING_EFFECTS}"
+            )
         if effect == "blocking":
             blocking = True
     if blocking and status == "draft_for_engineer_completeness_review":

@@ -19,6 +19,7 @@ import json
 import re
 import shlex
 import subprocess
+import tempfile
 import sys
 from pathlib import Path
 
@@ -72,6 +73,7 @@ def status_of(prd: str) -> str:
 
 
 def contract_findings(prd: str, work: Path) -> list[dict]:
+    work.mkdir(parents=True, exist_ok=True)
     path = work / "graded.md"
     path.write_text(prd)
     result = subprocess.run(
@@ -227,11 +229,12 @@ def main() -> None:
     if not cases:
         raise SystemExit("no cases selected")
 
-    work = ROOT / ".e2e-work"
-    work.mkdir(exist_ok=True)
+    # Scratch state stays outside the working tree. An agent command runs
+    # arbitrary code in the repository, and `git add -A` would pick it up.
     results = []
     failed = 0
-    try:
+    with tempfile.TemporaryDirectory(prefix="capture-e2e-") as work_dir:
+        work = Path(work_dir)
         for case in cases:
             transcript = load_transcript(case, args)
             graders = grade(case, transcript, work)
@@ -246,10 +249,6 @@ def main() -> None:
                     "graders": graders,
                 }
             )
-    finally:
-        for leftover in work.glob("*"):
-            leftover.unlink()
-        work.rmdir()
 
     report = {
         "classification": "graded agent output; every grader is deterministic, no model judges the result",

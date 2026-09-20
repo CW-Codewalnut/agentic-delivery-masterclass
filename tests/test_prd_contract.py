@@ -131,6 +131,12 @@ MUTATIONS = (
         "unowned_gap",
     ),
     (
+        "gap_blocking_effect_outside_the_agreed_set",
+        "| GAP-1 | Who executes the refund after a cancellation? | product owner | non_blocking | none yet | open, excluded from this revision |",
+        "| GAP-1 | Who executes the refund after a cancellation? | product owner | maybe later | none yet | open, excluded from this revision |",
+        "invalid_blocking_effect",
+    ),
+    (
         "blocking_gap_left_in_a_reviewable_draft",
         "| GAP-1 | Who executes the refund after a cancellation? | product owner | non_blocking | none yet | open, excluded from this revision |",
         "| GAP-1 | Who executes the refund after a cancellation? | product owner | blocking | none yet | open, excluded from this revision |",
@@ -217,6 +223,17 @@ class PrdContractCheckerTests(unittest.TestCase):
             declared - covered,
             "a declared finding code has no negative control",
         )
+
+    def test_a_hyphenated_blocking_effect_is_accepted(self) -> None:
+        """A live model run wrote "non-blocking". The hyphen carries no meaning."""
+        hyphenated = self.conforming.replace("| non_blocking |", "| non-blocking |")
+        self.assertNotEqual(self.conforming, hyphenated)
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "hyphenated.md"
+            path.write_text(hyphenated)
+            report = check(path)
+        self.assertEqual([], codes(report), report["findings"])
+        self.assertEqual(0, report["exit_code"])
 
     def test_an_empty_document_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

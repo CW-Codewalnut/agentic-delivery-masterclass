@@ -8,15 +8,27 @@ records whichever command produced the transcripts.
 """
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
 
 RECORDED = Path(__file__).resolve().parent / "recorded"
+ROOT = Path(__file__).resolve().parents[3]
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--probe",
+        type=Path,
+        help="record any harness scratch path inside the repository, for the no-pollution test",
+    )
+    args = parser.parse_args()
     case = json.load(sys.stdin)
+    if args.probe:
+        args.probe.parent.mkdir(parents=True, exist_ok=True)
+        args.probe.write_text(json.dumps(sorted(p.name for p in ROOT.glob(".e2e*"))))
     transcript = RECORDED / f"{case['id']}.json"
     if not transcript.is_file():
         raise SystemExit(f"no recorded transcript for case {case['id']}")
